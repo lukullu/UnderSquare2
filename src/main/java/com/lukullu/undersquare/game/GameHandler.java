@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
@@ -55,10 +56,12 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		
 		killEntities();
 
-		if(KeyHandler.escape){ UnderSquare.changeState(new PauseMenu(this));}
+		if(KeyHandler.escape){ UnderSquare.changeState(getPauseMenu());}
 		if(didIDie){UnderSquare.changeState(new DeathMenu(this));}
 	}
-	
+
+	protected ProgramState getPauseMenu() { return new PauseMenu(this); }
+
 	public void killEntities() {
 		
 		for(int i = 0; i < entitiesToDie.size(); i++){

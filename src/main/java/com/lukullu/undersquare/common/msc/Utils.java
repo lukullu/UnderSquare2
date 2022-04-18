@@ -1,5 +1,7 @@
 package com.lukullu.undersquare.common.msc;
 
+import java.util.Base64;
+
 public class Utils {
 
     public static <T extends Number> T clamp(T min, T max, T value){
