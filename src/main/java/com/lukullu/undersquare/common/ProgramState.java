@@ -12,7 +12,7 @@ public class ProgramState {
 	public void init() {}
 	public void update() {}
 	public void paint() {}
-
-	public void setLevel(LevelMap map, File file){}
+	
+	public void setLevel(LevelMap map, File file) {}
 
 }

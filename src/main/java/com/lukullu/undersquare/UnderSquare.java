@@ -1,6 +1,5 @@
 package com.lukullu.undersquare;
 
-import com.kilix.p2p.client.KilixP2PClient;
 import com.kilix.processing.ExtendedPApplet;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;

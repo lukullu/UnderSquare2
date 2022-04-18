@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.networking;
 
 import com.kilix.p2p.client.KilixP2PClient;
+import com.kilix.p2p.client.KilixP2PClientImpl;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.game.GameHandler;
@@ -30,7 +31,9 @@ public class ClientGameHandler extends GameHandler {
             client.joinRoom(Base64.getDecoder().decode(bufferedReader.readLine()));
 
             if (client == null); // TODO: failed
-
+    
+            ((KilixP2PClientImpl) client).onReceive((ch, packet) -> System.out.printf("[%s] %s", ch, packet));
+            
             client.subscribe("EntityUpdates",(packet) -> {
                 if(packet instanceof ArrayList entityList){ onEntityUpdate((ArrayList<Entity>) entityList);}
             });

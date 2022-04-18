@@ -5,15 +5,14 @@ import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.game.LevelMap;
-import com.lukullu.undersquare.game.entity.Entity;
-import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.menu.HostPauseMenu;
-import com.lukullu.undersquare.menu.PauseMenu;
 
-import static com.lukullu.undersquare.common.Constants.*;
-
-import java.io.IOException;
 import java.util.Base64;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.lukullu.undersquare.common.Constants.PACKET_RATE;
+import static com.lukullu.undersquare.common.Constants.ZERO_VECTOR_2;
 
 public class HostGameHandler extends GameHandler {
 
@@ -21,6 +20,10 @@ public class HostGameHandler extends GameHandler {
 
     public final KilixP2PClient client;
     public String roomToken = "";
+    
+    Timer updateTimer = new Timer(true);
+    TimerTask entityUpdateTask = new TimerTask() { public void run() { sendEntitiesPackage(); System.out.println("packet"); }};
+    
     public HostGameHandler(LevelMap _levelMap) {
         super(_levelMap);
 
@@ -34,8 +37,17 @@ public class HostGameHandler extends GameHandler {
 
         }catch (Exception e){}
         roomToken = Base64.getEncoder().encodeToString(client.getRoomToken());
+        
+        updateTimer.scheduleAtFixedRate(entityUpdateTask, 0, 1000l);
+        
     }
-
+    
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("bye bye");
+        updateTimer.cancel();
+    }
+    
     @Override
     public void init(){ super.init(); }
 
@@ -47,9 +59,8 @@ public class HostGameHandler extends GameHandler {
     }
 
     @Override
-    public void update(){
+    public void update() {
         super.update();
-        sendEntitiesPackage();
     }
 
     Vector2 lastPlayerPositionSent = ZERO_VECTOR_2;
