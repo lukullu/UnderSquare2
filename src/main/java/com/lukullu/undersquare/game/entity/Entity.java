@@ -9,6 +9,7 @@ import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
@@ -16,7 +17,7 @@ import static com.lukullu.undersquare.UnderSquare.state;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
-public class Entity implements ProcessingClass {
+public class Entity implements ProcessingClass, Serializable {
 	
 	public boolean isActive = false;
 	public boolean isVisible = false;

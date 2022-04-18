@@ -7,11 +7,13 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
 
+import java.io.Serializable;
+
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.prjColor;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
-public class Projectile extends Entity implements ProcessingClass {
+public class Projectile extends Entity implements ProcessingClass, Serializable {
 
 	public int startingHP = 1;
 

@@ -59,7 +59,7 @@ public class HostGameHandler extends GameHandler {
         if(timeSinceLastPacket < timeBetweenPackets){
             try {
                 client.send("EntityUpdates", entities);
-            } catch (Exception e) {}
+            } catch (Exception e) { println(e); }
         }
 
     }

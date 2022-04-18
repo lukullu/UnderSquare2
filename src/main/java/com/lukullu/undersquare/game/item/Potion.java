@@ -2,9 +2,10 @@ package com.lukullu.undersquare.game.item;
 import com.lukullu.undersquare.game.entity.player.Player;
 
 import java.awt.*;
+import java.io.Serializable;
 
 
-public class Potion extends Item{
+public class Potion extends Item implements Serializable {
 
     public static final Potion SMALL_POTION  = new Potion("Small Potion",  Color.magenta.brighter(), 20);
     public static final Potion MEDIUM_POTION = new Potion("Medium Potion", Color.magenta,            50);

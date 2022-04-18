@@ -4,9 +4,11 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.player.Player;
 
+import java.io.Serializable;
+
 import static com.lukullu.undersquare.common.Constants.ITEM_ROTATION_RATE;
 
-public class ItemBox extends Entity {
+public class ItemBox extends Entity implements Serializable {
 
     Item item;
     float rotation = 0;

@@ -5,9 +5,11 @@ import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
+import java.io.Serializable;
+
 import static com.lukullu.undersquare.common.Constants.*;
 
-public class Bouncer extends Enemy implements ProcessingClass {
+public class Bouncer extends Enemy implements ProcessingClass, Serializable {
 
 	Vector2 initForce;
 

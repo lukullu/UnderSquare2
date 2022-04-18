@@ -5,10 +5,11 @@ import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.entity.projectile.ProjectileConstructor;
 
 import java.awt.*;
+import java.io.Serializable;
 
 import static com.lukullu.undersquare.common.Constants.*;
 
-public class Weapon extends Item {
+public class Weapon extends Item implements Serializable {
 	
 	//name ; construction ; dim ; dmg ; initForce ; bbForce ; fireRate
 	public static final Weapon SNIPER          = new Weapon("Sniper",          Color.gray, HSConstruction,     new Vector2(5,10),10, new Vector2(1200000,1200000), new Vector2(100000,100000  ), 1  , 3  , 10  , 0.25f);

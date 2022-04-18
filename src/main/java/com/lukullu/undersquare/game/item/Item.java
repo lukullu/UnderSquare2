@@ -3,8 +3,9 @@ package com.lukullu.undersquare.game.item;
 import com.lukullu.undersquare.game.entity.player.Player;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Item{
+public class Item implements Serializable {
 	
 	public String name;
 	public Color color;

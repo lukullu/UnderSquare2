@@ -7,10 +7,11 @@ import com.lukullu.undersquare.game.entity.projectile.*;
 
 import java.awt.*;
 import java.io.File;
+import java.io.Serializable;
 
 import static java.lang.Math.PI;
 
-public class Constants {
+public class Constants{
 
 	// TODO before handover: WTH is this:
 	public static final Vector2 ZERO_VECTOR_2 = new Vector2(0, 0);

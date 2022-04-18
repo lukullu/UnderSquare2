@@ -5,7 +5,9 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
 
-public class Quad extends Projectile implements ProcessingClass {
+import java.io.Serializable;
+
+public class Quad extends Projectile implements ProcessingClass, Serializable {
 
     public Quad(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, float _mass, float _inertiaCoefficient, Entity _origin) {
         super(new Vector2(10000000, 1000000), _dim, _initForce, _dmg, _ttl, _mass, _inertiaCoefficient, _origin);

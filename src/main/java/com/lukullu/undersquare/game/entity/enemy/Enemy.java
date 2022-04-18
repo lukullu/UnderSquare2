@@ -3,11 +3,13 @@ package com.lukullu.undersquare.game.entity.enemy;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
 
+import java.io.Serializable;
+
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.UnderSquare.*;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
-public class Enemy extends Entity {
+public class Enemy extends Entity implements Serializable {
 
 	public Enemy(Vector2 _pos, Vector2 _dim){
 		super(_pos, _dim);
