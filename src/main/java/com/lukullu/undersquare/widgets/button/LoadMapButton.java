@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.menu.MainMenu;
+import com.lukullu.undersquare.networking.HostGameHandler;
 import com.lukullu.undersquare.widgets.Grid;
 
 import static com.lukullu.undersquare.common.Constants.*;
@@ -14,8 +15,8 @@ import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class LoadMapButton extends ButtonWidget {
-	
-	public LoadMapButton(Vector2 _pos, Vector2 _dim ,int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, int _textSize, int _alignment){
+
+	public LoadMapButton(Vector2 _pos, Vector2 _dim , int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, int _textSize, int _alignment){
 		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, "Load", _textSize, _alignment);
 
 	}
@@ -53,7 +54,7 @@ public class LoadMapButton extends ButtonWidget {
 		if(UnderSquare.state instanceof MainMenu){
 			assert UnderSquare.getMainMenu() != null;
 			if (UnderSquare.getMainMenu().mapToBeLoaded != null)
-				UnderSquare.changeState(new GameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
+				UnderSquare.changeState(new HostGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
 
 		}
 	}

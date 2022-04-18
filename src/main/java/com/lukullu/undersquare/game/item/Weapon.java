@@ -36,9 +36,7 @@ public class Weapon extends Item {
 	public void onGet(Player target){
 		if(!target.weapons.contains(this)){
 			target.weapons.add(this);
+			target.currentWeaponIndex = target.weapons.size()-1;
 		}
-
-
 	}
-	
 }

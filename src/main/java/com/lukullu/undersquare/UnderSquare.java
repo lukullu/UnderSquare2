@@ -1,12 +1,17 @@
 package com.lukullu.undersquare;
 
+import com.kilix.p2p.client.KilixP2PClient;
 import com.kilix.processing.ExtendedPApplet;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.GameHandler;
+import com.lukullu.undersquare.menu.ClientPauseMenu;
+import com.lukullu.undersquare.menu.HostPauseMenu;
 import com.lukullu.undersquare.menu.MainMenu;
+import com.lukullu.undersquare.networking.ClientGameHandler;
+import com.lukullu.undersquare.networking.HostGameHandler;
 import processing.event.MouseEvent;
 
 import static com.lukullu.undersquare.common.Constants.*;
@@ -27,6 +32,7 @@ public class UnderSquare extends ExtendedPApplet {
 		frameRate(60);
 		state = new MainMenu();
 		state.init();
+
 	}
 	
 	public void draw() {
@@ -62,7 +68,11 @@ public class UnderSquare extends ExtendedPApplet {
 	}
 	
 	public static GameHandler getGameHandler() {
-		if (state instanceof GameHandler gh) return gh;
+		if(state instanceof HostGameHandler hgh) return hgh;
+		else if(state instanceof ClientGameHandler cgh) return cgh;
+		else if (state instanceof GameHandler gh) return gh;
+		else if(state instanceof ClientPauseMenu cpm){ return cpm.pausedState;}
+		else if(state instanceof HostPauseMenu hpm){ return hpm.pausedState;}
 		return null;
 	}
 	
@@ -83,8 +93,11 @@ public class UnderSquare extends ExtendedPApplet {
 
 	public static void changeStateWithoutInit(ProgramState _state){
 		state = _state;
+	}
+
+	public static void changeStateWithoutInitWithUpdate(ProgramState _state){
+		state = _state;
 		state.update();
 	}
-	
 	
 }

@@ -138,4 +138,8 @@ public class Constants {
 
 
 	public static final String[] RANDOM_DEATH_MESSAGES = IO.loadDeathMessages();
+
+	//networking
+	public static final float PACKET_RATE = 4;
+
 }

@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
+import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
@@ -89,7 +90,7 @@ public class Entity implements ProcessingClass {
 	public void behavior() {}
 	public void takeDMG(int amount ){ if(iFrameTimeCounter <= 0){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = I_FRAME_TIME;} }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
-	public void onDeath(){ if(state instanceof GameHandler) { GameHandler game = (GameHandler) state; game.entitiesToDie.add(this);}}
+	public void onDeath(){ UnderSquare.getGameHandler().entitiesToDie.add(this);}
 
 	public void restoreHP(int amount){
 		if( HP + amount > startingHP*2){ HP = startingHP*2;} else HP+= amount;

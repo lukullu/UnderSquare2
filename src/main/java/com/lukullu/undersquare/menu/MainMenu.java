@@ -7,6 +7,7 @@ import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.LevelMap;
+import com.lukullu.undersquare.networking.ClientGameHandler;
 import com.lukullu.undersquare.widgets.ScrollWidget;
 import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
@@ -32,6 +33,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     public Widget editorButton;
     public Widget exitButton;
     public Widget scrollListFiller;
+    public Widget TEMPJoinButton;
     public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 
     @Override
@@ -121,6 +123,22 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 CENTER,
                 () -> { UnderSquare.INSTANCE.exit();}
         );
+
+        TEMPJoinButton = new ButtonWidget(
+                new Vector2(
+                        scaleToScreenX(1270),
+                        scaleToScreenY(1010)
+                ),
+                new Vector2(
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                "Join Game",
+                DEFAULT_TEXT_SIZE,
+                CENTER,
+                () -> { UnderSquare.changeState(new ClientGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));}
+        );
     }
 
     public void displayFiles(Map<String, File> files){
@@ -151,6 +169,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         editorButton.update();
         fileList.update();
         exitButton.update();
+        TEMPJoinButton.update();
 
     }
     @Override
@@ -162,6 +181,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         editorButton.paint();
         tempTitleScreen.paint();
         exitButton.paint();
+        TEMPJoinButton.paint();
 
     }
 

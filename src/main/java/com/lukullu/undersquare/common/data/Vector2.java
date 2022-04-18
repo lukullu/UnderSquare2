@@ -1,8 +1,9 @@
 package com.lukullu.undersquare.common.data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Vector2 {
+public class Vector2 implements Serializable {
 	
 	public Vector2(Number _x, Number _y) { x = _x.floatValue(); y = _y.floatValue(); }
 	
