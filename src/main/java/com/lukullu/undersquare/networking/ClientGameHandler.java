@@ -42,14 +42,6 @@ public class ClientGameHandler extends GameHandler {
 
     }
 
-    @Override
-    public void update(){
-
-        if(KeyHandler.escape){ UnderSquare.changeState(getPauseMenu());}
-        if(didIDie){UnderSquare.changeState(new DeathMenu(this));}
-
-    }
-
     public void onEntityUpdate(ArrayList<Entity> _entities){
 
         entities = _entities;

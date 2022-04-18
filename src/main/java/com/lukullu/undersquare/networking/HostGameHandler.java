@@ -22,7 +22,7 @@ public class HostGameHandler extends GameHandler {
     public String roomToken = "";
     
     Timer updateTimer = new Timer(true);
-    TimerTask entityUpdateTask = new TimerTask() { public void run() { sendEntitiesPackage(); System.out.println("packet"); }};
+    TimerTask entityUpdateTask = new TimerTask() { public void run() { sendEntitiesPackage(); }};
     
     public HostGameHandler(LevelMap _levelMap) {
         super(_levelMap);
@@ -38,7 +38,7 @@ public class HostGameHandler extends GameHandler {
         }catch (Exception e){}
         roomToken = Base64.getEncoder().encodeToString(client.getRoomToken());
         
-        updateTimer.scheduleAtFixedRate(entityUpdateTask, 0, 40l);
+        updateTimer.scheduleAtFixedRate(entityUpdateTask, 0, 100L);
         
     }
     
@@ -56,11 +56,6 @@ public class HostGameHandler extends GameHandler {
     @Override
     protected ProgramState getPauseMenu() {
         return new HostPauseMenu(this);
-    }
-
-    @Override
-    public void update() {
-        super.update();
     }
 
     public void sendEntitiesPackage() {
