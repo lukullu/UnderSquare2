@@ -38,7 +38,7 @@ public class HostGameHandler extends GameHandler {
         }catch (Exception e){}
         roomToken = Base64.getEncoder().encodeToString(client.getRoomToken());
         
-        updateTimer.scheduleAtFixedRate(entityUpdateTask, 0, 1000l);
+        updateTimer.scheduleAtFixedRate(entityUpdateTask, 0, 40l);
         
     }
     
@@ -63,7 +63,6 @@ public class HostGameHandler extends GameHandler {
         super.update();
     }
 
-    Vector2 lastPlayerPositionSent = ZERO_VECTOR_2;
     public void sendEntitiesPackage() {
 
         float timeBetweenPackets = 1/PACKET_RATE;
