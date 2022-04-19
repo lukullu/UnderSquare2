@@ -44,6 +44,8 @@ public class UnderSquare extends ExtendedPApplet {
 
 		timeSinceLastClick+=deltaTime;
 		if(mousePressed){ timeSinceLastClick = 0;}
+
+		KeyHandler.setResets();
 	}
 	
 	public void calcDeltaTime() {
@@ -96,7 +98,7 @@ public class UnderSquare extends ExtendedPApplet {
 
 	public static void changeStateWithoutInitWithUpdate(ProgramState _state){
 		state = _state;
-		state.update();
+		state.updateOnResume();
 	}
 	
 }

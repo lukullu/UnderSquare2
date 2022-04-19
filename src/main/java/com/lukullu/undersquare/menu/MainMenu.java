@@ -6,8 +6,10 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
+import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.networking.ClientGameHandler;
+import com.lukullu.undersquare.networking.HostGameHandler;
 import com.lukullu.undersquare.widgets.ScrollWidget;
 import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
@@ -30,6 +32,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
     public Widget tempTitleScreen;
     public Widget loadButton;
+    public Widget hostButton;
     public Widget editorButton;
     public Widget exitButton;
     public Widget scrollListFiller;
@@ -46,7 +49,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
     public void initWidgets() {
 
-        loadButton = new LoadMapButton(
+        loadButton = new ButtonWidget(
                 new Vector2(
                         scaleToScreenX(30),
                         scaleToScreenY(1020)
@@ -55,8 +58,30 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         scaleToScreenX(400),
                         scaleToScreenY(40)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,0,0,
+                "Play",
                 DEFAULT_TEXT_SIZE,
-                CENTER);
+                CENTER,
+                () -> { UnderSquare.changeState(new GameHandler(mapToBeLoaded));}
+        );
+
+        hostButton = new ButtonWidget(
+                new Vector2(
+                        scaleToScreenX(1060),
+                        scaleToScreenY(1010)
+                ),
+                new Vector2(
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                "Host Game",
+                DEFAULT_TEXT_SIZE,
+                CENTER,
+                () -> {
+                    try{ UnderSquare.changeState(
+                        new HostGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
+                    }catch (Exception e){}}
+        );
 
         editorButton = new ButtonWidget(
                 new Vector2(
@@ -137,7 +162,10 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 "Join Game",
                 DEFAULT_TEXT_SIZE,
                 CENTER,
-                () -> { UnderSquare.changeState(new ClientGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));}
+                () -> {
+                    try{
+                        UnderSquare.changeState(new ClientGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
+                    }catch (Exception e){}}
         );
     }
 
@@ -170,6 +198,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         fileList.update();
         exitButton.update();
         TEMPJoinButton.update();
+        hostButton.update();
 
     }
     @Override
@@ -182,6 +211,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         tempTitleScreen.paint();
         exitButton.paint();
         TEMPJoinButton.paint();
+        hostButton.paint();
 
     }
 

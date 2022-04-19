@@ -145,7 +145,7 @@ public class HostPauseMenu extends ProgramState implements ProcessingClass{
         retryButton.update();
         tokenDisplayField.update();
 
-        if(KeyHandler.escape){UnderSquare.changeStateWithoutInit(pausedState);}
+        if(KeyHandler.escape && KeyHandler.escapeR){UnderSquare.changeStateWithoutInit(pausedState);}
     }
 
     @Override

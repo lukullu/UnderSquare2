@@ -103,7 +103,7 @@ public class ClientPauseMenu extends ProgramState implements ProcessingClass{
         exitButton.update();
         retryButton.update();
 
-        if(KeyHandler.escape){UnderSquare.changeStateWithoutInit(pausedState);}
+        if(KeyHandler.escape && KeyHandler.escapeR){UnderSquare.changeStateWithoutInit(pausedState);}
     }
 
     @Override

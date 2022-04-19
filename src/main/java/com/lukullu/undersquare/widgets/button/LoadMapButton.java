@@ -54,7 +54,7 @@ public class LoadMapButton extends ButtonWidget {
 		if(UnderSquare.state instanceof MainMenu){
 			assert UnderSquare.getMainMenu() != null;
 			if (UnderSquare.getMainMenu().mapToBeLoaded != null)
-				UnderSquare.changeState(new HostGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
+				UnderSquare.changeState(new GameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
 
 		}
 	}

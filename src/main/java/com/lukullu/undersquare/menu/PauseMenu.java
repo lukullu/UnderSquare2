@@ -24,6 +24,8 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
     public Widget titleText;
     public Widget retryButton;
 
+    public boolean escapeReset = false;
+
     public PauseMenu(ProgramState _pausedState){
         pausedState = _pausedState;
     }
@@ -35,7 +37,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         initWidgets();
 
         //background
-        fill(Color.BLACK.getRGB(),100);
+        fill(Color.BLACK.getRGB(),50);
         rect(0,0,getWidth(),getHeight());
 
     }
@@ -114,7 +116,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         exitButton.update();
         retryButton.update();
 
-        if(KeyHandler.escape){UnderSquare.changeStateWithoutInitWithUpdate(pausedState);}
+        if(KeyHandler.escape && KeyHandler.escapeR){UnderSquare.changeStateWithoutInit(pausedState);}
     }
 
     @Override

@@ -56,14 +56,32 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		
 		killEntities();
 
-		if(KeyHandler.escape){ UnderSquare.changeState(getPauseMenu());}
+		if(KeyHandler.escape && KeyHandler.escapeR){ UnderSquare.changeState(getPauseMenu());}
+
 		if(didIDie){UnderSquare.changeState(new DeathMenu(this));}
+	}
+
+	@Override
+	public void updateOnResume(){
+
+
+		for(int i = 0; i < entities.size(); i++){
+			entities.get(i).update();
+		}
+
+		for(int i = 0; i < entities.size(); i++){
+			entities.get(i).entityCollide();
+		}
+
+		killEntities();
+
+
 	}
 
 	protected ProgramState getPauseMenu() { return new PauseMenu(this); }
 
 	public void killEntities() {
-		
+
 		for(int i = 0; i < entitiesToDie.size(); i++){
 			entities.remove(entitiesToDie.get(i));
 		}

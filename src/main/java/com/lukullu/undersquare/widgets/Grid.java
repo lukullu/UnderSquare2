@@ -122,15 +122,15 @@ public class Grid implements ProcessingClass {
 			if(getMouseButton() == LEFT) {
 				try {
 					map.mapData
-							[Math.round((getMouseY() - (scaleToScreenX((int) dim.y) / (float) size) / 2f - offsetY) / (scaleToScreenX((int) dim.y) / (float) size))]
-							[Math.round((getMouseX() - (scaleToScreenX((int) dim.x) / (float) size) / 2f - offsetX) / (scaleToScreenX((int) dim.x) / (float) size))]
+							[(int)Math.floor((getMouseY() - offsetY) / (dim.y / (float)size))]
+							[(int)Math.floor((getMouseX() - offsetX) / (dim.x / (float)size))]
 							= ("" + KeyHandler.lastPressedKey).toLowerCase().charAt(0);
 				} catch (Exception e) {}
 			}else if(getMouseButton() == RIGHT){
 				try {
 					UnderSquare.getLevelEditor().openMenu(new Vector2(
-							Math.round((getMouseY() - (scaleToScreenX((int) dim.y) / (float) size) / 2f - offsetY) / (scaleToScreenX((int) dim.y) / (float) size)),
-							Math.round((getMouseX() - (scaleToScreenX((int) dim.x) / (float) size) / 2f - offsetX) / (scaleToScreenX((int) dim.x) / (float) size))
+							(int)Math.floor((getMouseY() - offsetY) / (dim.y / (float)size)),
+							(int)Math.floor((getMouseX() - offsetX) / (dim.x / (float)size))
 					));
 				}catch (Exception e){}
 			}
