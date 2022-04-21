@@ -17,7 +17,7 @@ public class TextFieldWidget extends TextWidget{
     public ButtonState buttonState;
 
     public TextFieldWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, int _alignment) {
-        super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize, _alignment); text = _text;
+        super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize, _alignment);
     }
 
 
