@@ -27,16 +27,18 @@ public class TextFieldWidget extends TextWidget{
     @Override
     public void update(Vector2 _rel) {
 
-        if(pointRectangleCollision(new Vector2(getMouseX(), getMouseY()), new Vector2(pos.x + _rel.x, pos.y + _rel.y), dim) && !reset){
+        if(pointRectangleCollision(new Vector2(getMouseX(), getMouseY()), new Vector2(pos.x + _rel.x, pos.y + _rel.y), dim)){
             buttonState = ButtonState.HOVER;
         }else{
             buttonState = ButtonState.IDLE;
         }
 
         if(buttonState == ButtonState.HOVER && getMousePressed() && getMouseButton() == LEFT && !reset && UnderSquare.timeSinceLastClick >= CLICK_DELAY){
-            buttonState = ButtonState.CLICKED;
             reset = true;
             active = true;
+        }
+        if(getMousePressed() && buttonState != ButtonState.HOVER){
+            active = false;
         }
 
         if(!getMousePressed()){

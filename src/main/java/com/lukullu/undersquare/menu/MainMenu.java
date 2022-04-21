@@ -64,6 +64,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 () -> { UnderSquare.changeState(new GameHandler(mapToBeLoaded));}
         );
 
+        /*
         hostButton = new ButtonWidget(
                 new Vector2(
                         scaleToScreenX(1060),
@@ -81,7 +82,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                     try{ UnderSquare.changeState(
                         new HostGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
                     }catch (Exception e){}}
-        );
+        );*/
 
         editorButton = new ButtonWidget(
                 new Vector2(
@@ -149,7 +150,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 () -> { UnderSquare.INSTANCE.exit();}
         );
 
-        TEMPJoinButton = new ButtonWidget(
+        /*TEMPJoinButton = new ButtonWidget(
                 new Vector2(
                         scaleToScreenX(1270),
                         scaleToScreenY(1010)
@@ -166,7 +167,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                     try{
                         UnderSquare.changeState(new ClientGameHandler(UnderSquare.getMainMenu().mapToBeLoaded));
                     }catch (Exception e){}}
-        );
+        );*/
     }
 
     public void displayFiles(Map<String, File> files){
@@ -197,8 +198,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         editorButton.update();
         fileList.update();
         exitButton.update();
-        TEMPJoinButton.update();
-        hostButton.update();
+        //TEMPJoinButton.update();
+        //hostButton.update();
 
     }
     @Override
@@ -210,8 +211,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         editorButton.paint();
         tempTitleScreen.paint();
         exitButton.paint();
-        TEMPJoinButton.paint();
-        hostButton.paint();
+        //TEMPJoinButton.paint();
+        //hostButton.paint();
 
     }
 

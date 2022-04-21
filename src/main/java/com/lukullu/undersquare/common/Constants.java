@@ -31,7 +31,7 @@ public class Constants{
 	//player
 	public static final int playerDimensions = 40;
 	public static final int playerHP = 100;
-	public static final int playerContactDMG = 1;
+	public static final int playerContactDMG = 5;
 	public static final float PLAYER_DASH_DELAY = 0.7f;
 	public static final float PLAYER_WEAPON_SWAP_DELAY = 0.1f;
 	public static final float DASH_ACCELERATION = 3;
