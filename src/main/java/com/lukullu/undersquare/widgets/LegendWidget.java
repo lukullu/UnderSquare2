@@ -24,7 +24,7 @@ public class LegendWidget extends  TextWidget implements ProcessingClass {
         textSize(textSize);
         fill(UI_TEXT_COLOR.getRGB());
         textAlign(alignment,CENTER);
-        text(text, pos.x+_rel.x+dim.x/10f + scaleToScreenX(20),pos.y + _rel.y + dim.y/2f);
+        text(getText(), pos.x+_rel.x+dim.x/10f + scaleToScreenX(20),pos.y + _rel.y + dim.y/2f);
         fill(color.getRGB());
         rect(pos.x + _rel.x, pos.y + _rel.y, scaleToScreenX(20), dim.y, cornerTL, 0, 0, cornerBL);
 

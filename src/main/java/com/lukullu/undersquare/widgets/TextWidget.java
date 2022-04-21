@@ -7,12 +7,12 @@ import static com.lukullu.undersquare.common.Constants.*;
 
 public class TextWidget extends Widget implements ProcessingClass {
 	
-	public String text;
+	private String text;
 	public int textSize;
 	public int alignment;
 	
 	public TextWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, int _alignment) {
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, UI_CONTRAST_COLOR);  textSize = _textSize; text = _text; alignment = _alignment;
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, UI_CONTRAST_COLOR);  textSize = _textSize; setText(_text); alignment = _alignment;
 	}
 	
 	@Override
@@ -24,9 +24,16 @@ public class TextWidget extends Widget implements ProcessingClass {
 		fill(UI_TEXT_COLOR.getRGB());
 		textSize(textSize);
 		textAlign(alignment,CENTER);
-		if(alignment == CENTER){text(text, pos.x+_rel.x+dim.x/2f,pos.y + _rel.y + dim.y/2f);}
-		else {text(text, pos.x+_rel.x+dim.x/10f,pos.y + _rel.y + dim.y/2f);}
+		if(alignment == CENTER){text(getText(), pos.x+_rel.x+dim.x/2f,pos.y + _rel.y + dim.y/2f);}
+		else {text(getText(), pos.x+_rel.x+dim.x/10f,pos.y + _rel.y + dim.y/2f);}
 
 	}
-	
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
 }

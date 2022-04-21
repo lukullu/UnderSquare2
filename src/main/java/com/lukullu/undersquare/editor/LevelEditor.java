@@ -13,7 +13,6 @@ import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
 import com.lukullu.undersquare.widgets.button.SaveMapButton;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,6 +34,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public ListWidget legend;
 	public Widget backButton;
 	public Widget scrollListFiller;
+	public TextWidget textFieldWidget;
 	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 	
 	public LevelMap mapToBeLoaded;
@@ -59,6 +59,17 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	
 	
 	public void initWidgets() {
+
+		textFieldWidget = new TextFieldWidget(
+				new Vector2(
+						scaleToScreenX(30),
+						scaleToScreenY(90)
+				),
+				new Vector2(
+						scaleToScreenX(400),
+						scaleToScreenY(40)),
+				ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+				"", DEFAULT_TEXT_SIZE, CORNER);
 
 		gridBackDrop = new TextWidget(
 						new Vector2(
@@ -185,7 +196,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	
 	@Override
 	public void update(){
-		
+
+		textFieldWidget.update();
 		curGrid.update();
 		saveButton.update();
 		loadButton.update();
@@ -200,6 +212,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		background(UI_BACKGROUND_COLOR.getRGB());
 
+		textFieldWidget.paint();
 		gridBackDrop.paint();
 		curGrid.paint();
 		backButton.paint();
@@ -338,7 +351,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		enemyIndicesMap.put(pos,curEnemyIndex);
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
-			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = enemyTypeNames[curEnemyIndex];}
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(enemyTypeNames[curEnemyIndex]);}
 
 	}
 
@@ -351,7 +364,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		println(pos);
 		//println(pos + "|" + curItemIndex);
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
-			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = itemTypeNames[curItemIndex];}
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(itemTypeNames[curItemIndex]);}
 	}
 
 	public void initLegend(){

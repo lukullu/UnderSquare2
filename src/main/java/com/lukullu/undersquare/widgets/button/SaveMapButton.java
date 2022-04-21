@@ -6,6 +6,8 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 
+import java.io.File;
+
 import static com.lukullu.undersquare.common.Constants.*;
 
 public class SaveMapButton extends ButtonWidget implements ProcessingClass {
@@ -35,15 +37,22 @@ public class SaveMapButton extends ButtonWidget implements ProcessingClass {
 		fill(UI_TEXT_COLOR.getRGB());
 		textAlign(CENTER);
 		textSize(DEFAULT_TEXT_SIZE);
-		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
+		text(getText(), pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}
 	
 	@Override
 	public void onClick(){
 
+		assert UnderSquare.getLevelEditor() != null;
 		if(UnderSquare.getLevelEditor().curGrid.map.name != "Empty Template")
-			//TODO: get indices of item and enemy types and format them to an int array so they can be saved
-			IO.saveLevelMapAsJson(UnderSquare.getLevelEditor().curGrid.map,UnderSquare.getLevelEditor().curGrid.file);
+
+
+		if(UnderSquare.getLevelEditor().textFieldWidget.getText() == "") {
+			IO.saveLevelMapAsJson(UnderSquare.getLevelEditor().curGrid.map, UnderSquare.getLevelEditor().curGrid.file);
+		}else{
+			UnderSquare.getLevelEditor().curGrid.map.name = UnderSquare.getLevelEditor().textFieldWidget.getText();
+			IO.saveLevelMapAsJson(UnderSquare.getLevelEditor().curGrid.map, new File(MAPS_BASE_DIR, UnderSquare.getLevelEditor().curGrid.map.name + ".json"));
+		}
 		
 		if (UnderSquare.getLevelEditor() != null) {
 			UnderSquare.getLevelEditor().fileList.clearWidgets();

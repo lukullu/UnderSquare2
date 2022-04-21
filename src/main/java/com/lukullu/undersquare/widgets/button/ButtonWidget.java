@@ -64,7 +64,7 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 		fill(UI_TEXT_COLOR.getRGB());
 		textAlign(alignment);
 		textSize(DEFAULT_TEXT_SIZE);
-		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
+		text(getText(), pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}
 	
 	public void onClick() { onClick.run(); }

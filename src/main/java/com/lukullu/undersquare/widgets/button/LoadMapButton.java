@@ -6,7 +6,6 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.menu.MainMenu;
-import com.lukullu.undersquare.networking.HostGameHandler;
 import com.lukullu.undersquare.widgets.Grid;
 
 import static com.lukullu.undersquare.common.Constants.*;
@@ -39,7 +38,7 @@ public class LoadMapButton extends ButtonWidget {
 		fill(UI_TEXT_COLOR.getRGB());
 		textAlign(CENTER);
 		textSize(DEFAULT_TEXT_SIZE);
-		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
+		text(getText(), pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}
 
 	@Override
