@@ -9,6 +9,7 @@ import java.io.*;
 public class Main {
 	
 	public static void main(String[] args) {
+
 		try {
 			initTrust();
 		} catch (IOException e) {
@@ -17,6 +18,7 @@ public class Main {
 		}
 		KilixP2PClient.setTrustStore("data/trust.jks","changeit");
 
+		//start game
 		ProcessingSketch<UnderSquare> gameSketch = ProcessingSketch
 				.builder(UnderSquare.class)
 				.fullScreen()
