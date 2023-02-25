@@ -95,11 +95,11 @@ public class IO implements ProcessingClass {
         return output;
     }
 
-    public static Map<String, File> collectFiles() {
+    public static Map<String, String> collectFiles() {
 
         File[] mapFiles = MAPS_BASE_DIR.listFiles((file) -> file.isFile() && file.getName().toLowerCase(Locale.ROOT).endsWith(".json"));
 
-        Map<String,File> output = new HashMap<>();
+        Map<String,String> output = new HashMap<>();
 
         if(mapFiles == null) { return output; }
 
@@ -111,8 +111,7 @@ public class IO implements ProcessingClass {
                 if(output.containsKey(mapName))
                     for(int i = 0; output.containsKey(mapName + "-" + i); i++) mapName = mapName + "-" + i;
 
-                reader.close();
-                output.put(mapName,file);
+                output.put(mapName,file.getPath());
 
             } catch(Exception e){}
         }

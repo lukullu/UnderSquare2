@@ -170,7 +170,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         );*/
     }
 
-    public void displayFiles(Map<String, File> files){
+    public void displayFiles(Map<String, String> files){
 
         files.forEach((mapName,file) -> { fileList.addWidget(
                 new ButtonWidget(
@@ -181,7 +181,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         CENTER,
                         () -> {
                             try {
-                                UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);
+                                UnderSquare.state.setLevel( GSON.fromJson(new FileReader(new File(file)),LevelMap.class),new File(file));
                             } catch (FileNotFoundException e) {}
                         }
                 )

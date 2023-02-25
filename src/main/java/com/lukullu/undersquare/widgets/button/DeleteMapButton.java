@@ -52,15 +52,14 @@ public class DeleteMapButton extends ButtonWidget {
 		if(UnderSquare.state instanceof LevelEditor) {
 			assert UnderSquare.getLevelEditor() != null;
 			if (UnderSquare.getLevelEditor().fileToBeLoaded != null);
-				File file = UnderSquare.getLevelEditor().fileToBeLoaded;
-				println("name: " + file.getName());
-				println("exists: " + file.canWrite());
-				println("delete: " + file.delete());
+				
+				println("name: " + UnderSquare.getLevelEditor().fileToBeLoaded.getName());
+				println("exists: " + UnderSquare.getLevelEditor().fileToBeLoaded.exists());
+				println("delete: " + UnderSquare.getLevelEditor().fileToBeLoaded.delete());
 
 				UnderSquare.getLevelEditor().fileList.clearWidgets();
 				UnderSquare.getLevelEditor().displayFiles(IO.collectFiles());
 				
 		} 
 	}
-	
 }

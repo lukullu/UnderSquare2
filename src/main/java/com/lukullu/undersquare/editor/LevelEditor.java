@@ -189,18 +189,29 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 	}
 
-	public void displayFiles(Map<String, File> files){
+	public void displayFiles(Map<String, String> files){
 
-		files.forEach((mapName,file) -> { fileList.addWidget(
+		files.forEach((mapName,filePath) -> { fileList.addWidget(
 				new ButtonWidget(
 						new Vector2(scaleToScreenX(10),0),
 						new Vector2(scaleToScreenX(380),scaleToScreenY(40)),
 						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
 						mapName, DEFAULT_TEXT_SIZE, CENTER,
 						() -> {
-							try {
-								UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);
-							} catch (FileNotFoundException e) {}
+
+							try
+							{
+								File file = new File(filePath);
+								FileReader reader = new FileReader(file);
+
+								UnderSquare.state.setLevel(GSON.fromJson(reader, LevelMap.class),file);
+								reader.close();
+							}
+							catch (Exception e)
+							{
+								println(e);
+							}
+
 						}
 				)
 		);});
