@@ -58,9 +58,10 @@ public class IO implements ProcessingClass {
         itemIndicesMap.put(2,FLAMETHROWER);
         itemIndicesMap.put(3,QUADSHOT);
         itemIndicesMap.put(4,SHOTGUN);
-        itemIndicesMap.put(5,SMALL_POTION);
-        itemIndicesMap.put(6,MEDIUM_POTION);
-        itemIndicesMap.put(7,LARGE_POTION);
+        itemIndicesMap.put(5,ORBIT);
+        itemIndicesMap.put(6,SMALL_POTION);
+        itemIndicesMap.put(7,MEDIUM_POTION);
+        itemIndicesMap.put(8,LARGE_POTION);
 
         return itemIndicesMap;
     }
@@ -100,19 +101,20 @@ public class IO implements ProcessingClass {
 
         Map<String,File> output = new HashMap<>();
 
-        if(mapFiles == null){ return output; }
+        if(mapFiles == null) { return output; }
 
-        for(File file : mapFiles){
-            try {
+        for(File file : mapFiles) {
+            try (FileReader reader = new FileReader(file)) {
                 String mapName;
-                mapName = GSON.fromJson(new FileReader(file), LevelMap.class).name;
+                mapName = GSON.fromJson(reader, LevelMap.class).name;
 
                 if(output.containsKey(mapName))
                     for(int i = 0; output.containsKey(mapName + "-" + i); i++) mapName = mapName + "-" + i;
 
+                reader.close();
                 output.put(mapName,file);
 
-            }catch(Exception e){}
+            } catch(Exception e){}
         }
 
         return output;
@@ -194,7 +196,7 @@ public class IO implements ProcessingClass {
         return levelMap;
     }
 
-    public static void saveLevelMapAsJson(LevelMap levelmap, File file){
+    public static void saveLevelMapAsJson(LevelMap levelmap, File file) {
 
         levelmap = getEntityIndices(levelmap);
 
@@ -204,16 +206,18 @@ public class IO implements ProcessingClass {
                 file = new File(MAPS_BASE_DIR, levelmap.name + ".json");
             }
 
+            // makin' sure the file is a file - kilix
             if (!file.isFile()) {
                 if (file.exists()) throw new RuntimeException("is not file you fucknut!");
                 if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
                 file.createNewFile();
             }
 
-            PrintWriter writer = new PrintWriter(file);
-            writer.println(json);
-            writer.flush();
-            writer.close();
+            // try-with-resource closes, even when there was a CATASTROPHIC failure - kilix
+            try (PrintWriter writer = new PrintWriter(file)) {
+                writer.println(json);
+                writer.flush();
+            }
 
         }catch(Exception e){}
 

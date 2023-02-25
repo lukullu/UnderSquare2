@@ -46,7 +46,6 @@ public class SaveMapButton extends ButtonWidget implements ProcessingClass {
 		assert UnderSquare.getLevelEditor() != null;
 		if(UnderSquare.getLevelEditor().curGrid.map.name != "Empty Template")
 
-
 		if(UnderSquare.getLevelEditor().textFieldWidget.getText() == "") {
 			IO.saveLevelMapAsJson(UnderSquare.getLevelEditor().curGrid.map, UnderSquare.getLevelEditor().curGrid.file);
 		}else{

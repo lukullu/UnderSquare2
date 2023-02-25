@@ -13,7 +13,6 @@ public class Enemy extends Entity implements Serializable {
 
 	public Enemy(Vector2 _pos, Vector2 _dim){
 		super(_pos, _dim);
-		
 		c = enemyColor;
 	}
 	

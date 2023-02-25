@@ -21,10 +21,10 @@ public class Quad extends Projectile implements ProcessingClass, Serializable {
 
     void createPellets(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, float _mass, float _inertiaCoefficient, Entity _origin) {
 
-        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( 400000, 400000 ), _dmg, _ttl, _mass, _inertiaCoefficient, _origin));
-        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( -400000,400000 ), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
-        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( 400000, -400000), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
-        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( -400000,-400000), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
+        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2(  400000,  400000 ), _dmg, _ttl, _mass, _inertiaCoefficient, _origin));
+        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( -400000,  400000 ), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
+        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2(  400000, -400000 ), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
+        UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2( -400000, -400000 ), _dmg, _ttl, _mass, _inertiaCoefficient,_origin));
 
     }
 }

@@ -73,7 +73,7 @@ public class Player extends Entity implements Serializable {
 		
 		force = new Vector2(fx == 0 ? force.x : force.x + fx, fy == 0 ? force.y : force.y + fy);
 
-		//dash
+		// dash
 		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY && shiftReset){
 			force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION);
 			dashDelay = 0;
@@ -81,6 +81,7 @@ public class Player extends Entity implements Serializable {
 			shiftReset = false;
 		}
 
+		// shoot weapon
 		if(weapons.size() > 0){
 			if(timeSinceLastShot > 1/weapons.get(currentWeaponIndex).fireRate){
 				if(KeyHandler.up || KeyHandler.down || KeyHandler.left || KeyHandler.right) {
@@ -99,7 +100,7 @@ public class Player extends Entity implements Serializable {
 			}
 		}
 
-		//weapon selection
+		// weapon selection
 		if(weapons.size() > 1) {
 			if (KeyHandler.x && xReset) {
 				currentWeaponIndex++;
@@ -119,12 +120,12 @@ public class Player extends Entity implements Serializable {
 			}
 		}
 
-		//control resets
+		// control resets
 		if(!shiftReset && !KeyHandler.shift){ shiftReset = true;}
 		if(!xReset && !KeyHandler.x){ xReset = true;}
 		if(!cReset && !KeyHandler.c){ cReset = true;}
 
-		//delay updates
+		// delay updates
 		timeSinceLastShot += deltaTime;
 		dashDelay += deltaTime;
 	}

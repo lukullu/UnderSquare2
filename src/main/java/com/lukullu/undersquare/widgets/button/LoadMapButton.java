@@ -48,7 +48,7 @@ public class LoadMapButton extends ButtonWidget {
 			assert UnderSquare.getLevelEditor() != null;
 			if (UnderSquare.getLevelEditor().mapToBeLoaded != null)
 				UnderSquare.getLevelEditor().itemIndicesMap = getItemPositionsfromIndices(UnderSquare.getLevelEditor().mapToBeLoaded);
-				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenX(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
+				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenY(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
 		} else
 		if(UnderSquare.state instanceof MainMenu){
 			assert UnderSquare.getMainMenu() != null;

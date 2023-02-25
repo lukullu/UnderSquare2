@@ -113,6 +113,7 @@ public class Constants{
 					"Flamethrower",
 					"Quadshot",
 					"Shotgun",
+					"Orbit",
 					"Small Potion",
 					"Medium Potion",
 					"Large Potion"
@@ -129,6 +130,7 @@ public class Constants{
 	public static final ProjectileConstructor shellConstruction = Shell::new;
 	public static final ProjectileConstructor quadConstruction = Quad::new;
 	public static final ProjectileConstructor HSConstruction = HighSpeed::new;
+	public static final ProjectileConstructor orbitConstruction = Orbit::new;
 	
 	//weapons
 	public static final float innertiaCoefficient = 0.25f;

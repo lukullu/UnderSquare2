@@ -10,6 +10,7 @@ import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
+import com.lukullu.undersquare.widgets.button.DeleteMapButton;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
 import com.lukullu.undersquare.widgets.button.SaveMapButton;
 
@@ -28,6 +29,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	
 	public Grid curGrid;
 	public Widget saveButton;
+	public Widget deleteButton;
 	public Widget loadButton;
 	public Widget gridBackDrop;
 	public ListWidget tileSettings;
@@ -51,7 +53,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		UnderSquare.INSTANCE.cursor(ARROW);
 		setLevel(null,null);
-		curGrid = new Grid(new Vector2(scaleToScreenX(950),scaleToScreenY(950)),32,mapToBeLoaded, fileToBeLoaded);
+		curGrid = new Grid(new Vector2(scaleToScreenY(950),scaleToScreenY(950)),32,mapToBeLoaded, fileToBeLoaded);
 		initWidgets();
 		displayFiles(IO.collectFiles());
 		
@@ -88,20 +90,32 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						scaleToScreenY(1000)
 				),
 				new Vector2(
-						scaleToScreenX(200),
+						scaleToScreenX(133),
 						scaleToScreenY(40)),
 				ROUNDEDCORNERS,0,0,0,
 				DEFAULT_TEXT_SIZE,
 				CENTER,
 				this);
-		
-		loadButton = new LoadMapButton(
+
+		deleteButton = new DeleteMapButton(
 				new Vector2(
-						scaleToScreenX(30) + scaleToScreenX(200),
+						scaleToScreenX(30) + scaleToScreenX(133),
 						scaleToScreenY(1000)
 				),
 				new Vector2(
-						scaleToScreenX(200),
+						scaleToScreenX(134),
+						scaleToScreenY(40)),
+				0,0,0,0,
+				DEFAULT_TEXT_SIZE,
+				CENTER);
+
+		loadButton = new LoadMapButton(
+				new Vector2(
+						scaleToScreenX(30) + scaleToScreenX(267),
+						scaleToScreenY(1000)
+				),
+				new Vector2(
+						scaleToScreenX(133),
 						scaleToScreenY(40)),
 				0,ROUNDEDCORNERS,0,0,
 				DEFAULT_TEXT_SIZE,
@@ -200,6 +214,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		textFieldWidget.update();
 		curGrid.update();
 		saveButton.update();
+		deleteButton.update();
 		loadButton.update();
 		backButton.update();
 		fileList.update();
@@ -218,6 +233,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		backButton.paint();
 		fileList.paint(ZERO_VECTOR_2);
 		saveButton.paint(ZERO_VECTOR_2);
+		deleteButton.paint(ZERO_VECTOR_2);
 		loadButton.paint(ZERO_VECTOR_2);
 		tileSettings.paint();
 		legend.paint();

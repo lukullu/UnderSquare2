@@ -33,8 +33,6 @@ public class HostGameHandler extends GameHandler {
             client.connect("p2p.aether.net.co", 7840);
             client.createRoom();
 
-            if (client == null); // TODO: failed
-
         }catch (Exception e){}
         roomToken = Base64.getEncoder().encodeToString(client.getRoomToken());
         

@@ -103,7 +103,7 @@ public class Grid implements ProcessingClass {
 				}
 
 				if(i == 0 || i == size-1 || j == 0 || j == size-1){ stroke(wallGridColor.getRGB());} else stroke(UI_LINE_COLOR.getRGB());
-				rect(offsetX + j * (dim.x / (float) size) , offsetY + i * (dim.x / (float) size) , dim.x / (float) size, dim.y / (float) size);
+				rect(offsetX + j * (dim.x / (float) size) , offsetY + i * (dim.y / (float) size) , dim.x / (float) size, dim.y / (float) size);
 				
 			}
 			
