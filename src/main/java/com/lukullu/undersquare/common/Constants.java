@@ -37,6 +37,10 @@ public class Constants{
 	public static final float DASH_ACCELERATION = 3;
 	public static final float PLAYER_DASH_IFRAME_TIME = 0.25f;
 
+	// points
+	public static final float COMBO_TIME = 2f;
+	public static final float REWARD_DISPLAY_FRAMES = 60f;
+	public static final Color REWARD_DISPLAY_COLOR = Color.WHITE;
 
 	//itemBox
 	public static final int itemBoxDimensions = 30;
@@ -51,6 +55,7 @@ public class Constants{
 	public static final Vector2 bouncerStartingForce = new Vector2(300000, 300000);
 	public static final int bouncerHP = 10;
 	public static final int bouncerContactDMG = 5;
+	public static final int bouncerPointReward = 100;
 
 	//Pursuer
 	public static final int persuerDetectionRange = 1000;

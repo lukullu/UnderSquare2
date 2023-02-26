@@ -14,7 +14,7 @@ public class Bouncer extends Enemy implements ProcessingClass, Serializable {
 	Vector2 initForce;
 
 	public Bouncer(Vector2 _pos, Vector2 _dim) {
-		super(_pos, _dim);
+		super(_pos, _dim, bouncerPointReward);
 		initForce = new Vector2(bouncerStartingForce.x * random(0.3, 1), bouncerStartingForce.y * random(0.3, 1));
 		force = initForce;
 		startingHP = bouncerHP;
@@ -26,7 +26,7 @@ public class Bouncer extends Enemy implements ProcessingClass, Serializable {
 	public void collide(){
 
 		for(int i = 0; i < entityColliders.size(); i++){
-			if(!(entityColliders.get(i) instanceof Enemy))takeDMG(entityColliders.get(i).dmg);
+			if(!(entityColliders.get(i) instanceof Enemy))takeDMG(entityColliders.get(i));
 			if (entityColliders.get(i) instanceof Projectile) takeKnockback(entityColliders.get(i).force);
 			else takeKnockback(new Vector2(  -entityColliders.get(i).force.x , -entityColliders.get(i).force.y));
 		}

@@ -29,7 +29,7 @@ public class ItemBox extends Entity implements Serializable {
 
         for(int i = 0; i < entityColliders.size(); i++){
             if (entityColliders.get(i) instanceof Player) {
-                takeDMG(entityColliders.get(i).dmg);
+                takeDMG(entityColliders.get(i));
                 item.onGet((Player) entityColliders.get(i));
             }
         }
@@ -37,7 +37,7 @@ public class ItemBox extends Entity implements Serializable {
     }
 
     @Override
-    public void takeDMG(int amount ){ HP -= amount; if(HP <= 0){ onDeath(); }}
+    public void takeDMG(Entity collider){ HP -= collider.dmg; if(HP <= 0){ onDeath(collider); }}
 
     @Override
     public void paint(Vector2 _pos, float opacity, boolean stroke){

@@ -65,7 +65,7 @@ public class OrbitProjectile extends Projectile {
 	}
 
 	@Override
-	public void takeDMG(int amount ){ HP -= amount; if(HP <= 0){ onDeath(); }}
+	public void takeDMG(Entity collider){ HP -= collider.dmg; if(HP <= 0){ onDeath(collider); }}
 
 	@Override
 	public void entityCollide() {

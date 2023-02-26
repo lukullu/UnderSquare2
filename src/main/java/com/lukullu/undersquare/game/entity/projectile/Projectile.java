@@ -61,7 +61,10 @@ public class Projectile extends Entity implements ProcessingClass, Serializable 
 	}
 
 	@Override
-	public void takeDMG(int amount ){ HP -= amount; if(HP <= 0){ onDeath(); }}
+	public void takeDMG(Entity collider){ HP -= collider.dmg; if(HP <= 0){ onDeath(collider); }}
+
+	@Override
+	public void kills(Entity victim){ origin.kills(victim); }
 
 	@Override
 	public void entityCollide() {

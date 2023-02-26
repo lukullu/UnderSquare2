@@ -11,8 +11,8 @@ import static com.lukullu.undersquare.common.collision.Collision.*;
 
 public class Enemy extends Entity implements Serializable {
 
-	public Enemy(Vector2 _pos, Vector2 _dim){
-		super(_pos, _dim);
+	public Enemy(Vector2 _pos, Vector2 _dim, int _pointReward){
+		super(_pos, _dim, _pointReward);
 		c = enemyColor;
 	}
 	

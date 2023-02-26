@@ -2,9 +2,12 @@ package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
+import com.lukullu.undersquare.game.entity.enemy.effect.Effect;
+import com.lukullu.undersquare.game.entity.enemy.effect.PointReward;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
@@ -31,6 +34,11 @@ public class Entity implements ProcessingClass, Serializable {
 	public Vector2 dim;
 	public Vector2 deltaPos;
 
+	public int points = 0;
+	public int pointReward = 0;
+	public int comboMultiplier = 1;
+	public float timeSinceLastKill = Constants.COMBO_TIME;
+
 	public Vector2[] prevPos = new Vector2[AFTERIMAGE_LENGTH];
 	
 	public Vector2 force = new Vector2(0,0);
@@ -45,6 +53,11 @@ public class Entity implements ProcessingClass, Serializable {
 	
 	public Entity(Vector2 _pos, Vector2 _dim){
 		init(_pos, _dim);
+	}
+
+	public Entity(Vector2 _pos, Vector2 _dim, int _pointReward){
+		init(_pos, _dim);
+		pointReward = _pointReward;
 	}
 	
 	public void init(Vector2 _pos, Vector2 _dim){
@@ -81,7 +94,7 @@ public class Entity implements ProcessingClass, Serializable {
 	public void collide(){
 
 		for (Entity entityCollider : entityColliders) {
-			takeDMG(entityCollider.dmg);
+			takeDMG(entityCollider);
 			if (entityCollider instanceof Projectile) takeKnockback(entityCollider.force);
 			else takeKnockback(new Vector2(-entityCollider.force.x, -entityCollider.force.y));
 		}
@@ -89,12 +102,23 @@ public class Entity implements ProcessingClass, Serializable {
 	}
 
 	public void behavior() {}
-	public void takeDMG(int amount ){ if(iFrameTimeCounter <= 0){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = I_FRAME_TIME;} }
+	public void takeDMG(Entity collider){ if(iFrameTimeCounter <= 0){ HP -= collider.dmg; if(HP <= 0){ onDeath(collider); } iFrameTimeCounter = I_FRAME_TIME;} }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
-	public void onDeath(){ UnderSquare.getGameHandler().entitiesToDie.add(this);}
+	public void kills(Entity victim){}
+	public void onDeath(Entity cause){ cause.kills(this) ; UnderSquare.getGameHandler().entitiesToDie.add(this); }
+	
+	
+	public void gainPoints(int amount, Entity victim)
+	{ 
+		points += amount; 
+	
+		assert UnderSquare.getGameHandler() != null;
+		UnderSquare.getGameHandler().entities.add( new PointReward(victim.pos, dim, Constants.REWARD_DISPLAY_FRAMES, amount) );
+
+	}
 
 	public void restoreHP(int amount){
-		if( HP + amount > startingHP*2){ HP = startingHP*2;} else HP+= amount;
+		if( HP + amount > startingHP*2){ HP = startingHP*2;} else HP += amount;
 	}
 
 	public void entityCollide() {

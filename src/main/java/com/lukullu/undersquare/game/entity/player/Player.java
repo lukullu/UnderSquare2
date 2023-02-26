@@ -1,12 +1,15 @@
 package com.lukullu.undersquare.game.entity.player;
 
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
+import com.lukullu.undersquare.game.entity.enemy.Enemy;
+import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
 import java.io.Serializable;
@@ -38,7 +41,7 @@ public class Player extends Entity implements Serializable {
 	}
 
 	@Override
-	public void onDeath() {
+	public void onDeath(Entity cause) {
 
 		assert UnderSquare.getGameHandler() != null;
 		UnderSquare.getGameHandler().paint();
@@ -125,7 +128,9 @@ public class Player extends Entity implements Serializable {
 		if(!xReset && !KeyHandler.x){ xReset = true;}
 		if(!cReset && !KeyHandler.c){ cReset = true;}
 
+
 		// delay updates
+		timeSinceLastKill += deltaTime;
 		timeSinceLastShot += deltaTime;
 		dashDelay += deltaTime;
 	}
@@ -163,4 +168,26 @@ public class Player extends Entity implements Serializable {
 		origin.force = new Vector2(origin.force.x - directedBlowBackForce.x, origin.force.y - directedBlowBackForce.y);
 		
 	}
+
+	@Override
+	public void kills(Entity victim)
+	{
+		
+		if(timeSinceLastKill < Constants.COMBO_TIME)
+		{
+			comboMultiplier *= 2;
+		}
+		else
+		{
+			comboMultiplier = 1;	
+		}
+
+		gainPoints(victim.pointReward * comboMultiplier, victim);
+
+		timeSinceLastKill = 0;
+
+		Debug.displayConst("Points: "+points + " Combo: " + comboMultiplier );
+
+	}
+
 }
