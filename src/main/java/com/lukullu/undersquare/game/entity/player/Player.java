@@ -175,7 +175,7 @@ public class Player extends Entity implements Serializable {
 		
 		if(timeSinceLastKill < Constants.COMBO_TIME)
 		{
-			comboMultiplier *= 2;
+			if(comboMultiplier < Constants.COMBO_MAX_MULTIPLIER) comboMultiplier *= 2;
 		}
 		else
 		{
@@ -188,6 +188,22 @@ public class Player extends Entity implements Serializable {
 
 		Debug.displayConst("Points: "+points + " Combo: " + comboMultiplier );
 
+	}
+
+	@Override
+	public void paint( Vector2 _pos, float opacity, boolean stroke){
+
+		noStroke();
+
+		float charge = 255;
+		if(weapons.size() > 0 && weapons.get(currentWeaponIndex).fireRate < Constants.FIRERATE_COLOR_THRESHOLD)
+		{
+			charge = timeSinceLastShot / (1/weapons.get(currentWeaponIndex).fireRate);
+		}
+
+		fill(Constants.FIRERATE_COLOR_RANGE - charge * Constants.FIRERATE_COLOR_RANGE,opacity);
+
+		rect(_pos.x,_pos.y,dim.x,dim.y);
 	}
 
 }

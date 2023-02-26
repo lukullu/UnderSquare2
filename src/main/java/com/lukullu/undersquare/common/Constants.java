@@ -30,7 +30,7 @@ public class Constants{
 
 	//player
 	public static final int playerDimensions = 40;
-	public static final int playerHP = 100;
+	public static final int playerHP = 25;
 	public static final int playerContactDMG = 5;
 	public static final float PLAYER_DASH_DELAY = 0.7f;
 	public static final float PLAYER_WEAPON_SWAP_DELAY = 0.1f;
@@ -39,6 +39,7 @@ public class Constants{
 
 	// points
 	public static final float COMBO_TIME = 2f;
+	public static final float COMBO_MAX_MULTIPLIER = 16f;
 	public static final float REWARD_DISPLAY_FRAMES = 60f;
 	public static final Color REWARD_DISPLAY_COLOR = Color.WHITE;
 
@@ -84,6 +85,9 @@ public class Constants{
 
 	public static final Color HP_BAR_HEALTH_COLOR = Color.green.darker();
 	public static final Color HP_BAR_OVERSHOOT_COLOR = new Color(0,72,181);
+
+	public static final int FIRERATE_COLOR_RANGE = 40;
+	public static final int FIRERATE_COLOR_THRESHOLD = 2;
 
 	//style
 	public static final int ROUNDEDCORNERS = 24;

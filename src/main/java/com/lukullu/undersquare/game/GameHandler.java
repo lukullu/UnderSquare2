@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Reversed;
 import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
@@ -16,6 +17,7 @@ import com.lukullu.undersquare.menu.DeathMenu;
 import com.lukullu.undersquare.menu.PauseMenu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.lukullu.undersquare.common.msc.Translation.*;
 import static com.lukullu.undersquare.common.Constants.*;
@@ -98,8 +100,7 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 			}
 		}
 
-
-		for (Entity entity : entities) {
+		for (Entity entity : Reversed.reversed(entities)) {
 			entity.paintAfterImages();
 			entity.paint(entity.pos, 255, true);
 
