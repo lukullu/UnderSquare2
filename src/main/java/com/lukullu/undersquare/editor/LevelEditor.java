@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.data.settings.Settings;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
@@ -46,6 +47,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public Map<Vector2,Integer> itemIndicesMap = new HashMap<>();
 	public int curEnemyIndex = 0;
 	public Map<Vector2,Integer> enemyIndicesMap = new HashMap<>();
+	public Settings curSettings = new Settings();
 
 
 	@Override
@@ -344,6 +346,41 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				);
 
 				break;
+			case 's':
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Spawner Settings:",
+								DEFAULT_TEXT_SIZE, CORNER
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"TODO: Limited (T/F)",
+								DEFAULT_TEXT_SIZE,
+								CENTER,
+								() -> {}
+						)
+				);
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"TODO: How Limited?",
+								DEFAULT_TEXT_SIZE,
+								CENTER,
+								() -> {}
+						)
+				);
+
+				break;
 			default:
 				tileSettings.widgets.add(
 						new TextWidget(
@@ -360,10 +397,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(10),0),
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								"test",
+								curSettings.pointsForLife ? "Points for Life: On " : "Points for Life: Off",
 								DEFAULT_TEXT_SIZE,
 								CENTER,
-								() -> {}
+								() -> {togglePointsForLife();}
 						)
 				);
 
@@ -387,15 +424,23 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		curItemIndex %= itemTypeNames.length;
 
 		itemIndicesMap.put(pos,curItemIndex);
-		println(itemIndicesMap.get(pos));
-		println(pos);
+		//println(itemIndicesMap.get(pos));
+		//println(pos);
 		//println(pos + "|" + curItemIndex);
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
 			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(itemTypeNames[curItemIndex]);}
 	}
 
-	public void initLegend(){
+	public void togglePointsForLife()
+	{
 
+		curSettings.pointsForLife = !curSettings.pointsForLife;
+
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curSettings.pointsForLife ? "Points for Life: On " : "Points for Life: Off");}
+	}
+
+	public void initLegend(){
 
 		legend.widgets.add(
 				new LegendWidget(
@@ -462,6 +507,23 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						"Enemy ... E",
 						DEFAULT_TEXT_SIZE,
 						enemyGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Spawner ... S",
+						DEFAULT_TEXT_SIZE,
+						spawnerGridColor
 				)
 		);
 

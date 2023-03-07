@@ -2,6 +2,7 @@ package com.lukullu.undersquare.common.collision;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
@@ -125,6 +126,23 @@ public class Collision implements ProcessingClass {
 				if(boxCollision(origin.pos,origin.dim,entities.get(i).pos,entities.get(i).dim)){output.add(entities.get(i));}
 				
 			}
+			
+		}
+		
+		return output;
+		
+	}
+
+	public static ArrayList<Entity> entityGridCollision(Vector2 pos) {
+		
+		ArrayList<Entity> output = new ArrayList<>();
+		
+		Vector2 gridPos = getGridPosition(pos, ZERO_VECTOR_2);
+
+		List<Entity> entities = UnderSquare.getGameHandler().entities;
+		for(int i = 0; i < entities.size(); i++){
+			
+			if(boxCollision(new Vector2(gridPos.x * Constants.mapGridSize, gridPos.y * Constants.mapGridSize), new Vector2(Constants.mapGridSize, Constants.mapGridSize),entities.get(i).pos,entities.get(i).dim)){output.add(entities.get(i));}
 			
 		}
 		

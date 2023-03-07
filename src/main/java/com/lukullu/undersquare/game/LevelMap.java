@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.game;
 
 import com.kilix.processing.ProcessingClass;
+import com.lukullu.undersquare.common.data.settings.Settings;
 
 public class LevelMap implements ProcessingClass {
 
@@ -9,6 +10,7 @@ public class LevelMap implements ProcessingClass {
 	public String author;
 	public int gridSize;
 	public float packHierarchy;
+	public Settings settings = new Settings();
 	public char[][] mapData;
 	public int[] itemBoxFillData;
 	public int[] enemyFillData;

@@ -6,8 +6,8 @@ import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.game.entity.enemy.effect.Effect;
-import com.lukullu.undersquare.game.entity.enemy.effect.PointReward;
+import com.lukullu.undersquare.game.entity.effect.Effect;
+import com.lukullu.undersquare.game.entity.effect.PointReward;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
@@ -114,7 +114,15 @@ public class Entity implements ProcessingClass, Serializable {
 	
 		assert UnderSquare.getGameHandler() != null;
 		UnderSquare.getGameHandler().entities.add( new PointReward(victim.pos, dim, Constants.REWARD_DISPLAY_FRAMES, amount) );
+	}
 
+	public void gainPoints(int amount)
+	{ 
+		points += amount; 
+	
+		// TODO: display otherwise
+		//assert UnderSquare.getGameHandler() != null;
+		//UnderSquare.getGameHandler().entities.add( new PointReward(victim.pos, dim, Constants.REWARD_DISPLAY_FRAMES, amount) );
 	}
 
 	public void restoreHP(int amount){

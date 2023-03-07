@@ -55,4 +55,9 @@ public class ListWidget extends Widget implements ProcessingClass {
 
     }
 
+    public void reset()
+    {
+        widgets = new ArrayList<>();
+    }
+
 }

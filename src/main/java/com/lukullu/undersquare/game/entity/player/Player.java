@@ -27,6 +27,7 @@ public class Player extends Entity implements Serializable {
 
 	float timeSinceLastShot = 0;
 	float dashDelay = 0;
+	float pointsForLifeDelay = 0;
 
 	boolean xReset = false;
 	boolean cReset = false;
@@ -129,7 +130,18 @@ public class Player extends Entity implements Serializable {
 		if(!cReset && !KeyHandler.c){ cReset = true;}
 
 
+		// points for life
+		if(UnderSquare.getGameHandler().levelMap.settings.pointsForLife)
+		{
+			if(pointsForLifeDelay >= TIME_POINTS_FOR_LIFE)
+			{
+				pointsForLifeDelay = 0;
+				gainPoints(POINTS_FOR_LIFE_REWARD);
+			}
+		}
+
 		// delay updates
+		pointsForLifeDelay += deltaTime;
 		timeSinceLastKill += deltaTime;
 		timeSinceLastShot += deltaTime;
 		dashDelay += deltaTime;

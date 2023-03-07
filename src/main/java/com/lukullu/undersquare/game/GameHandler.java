@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.data.settings.Settings;
 import com.lukullu.undersquare.common.msc.Reversed;
 import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.game.camera.Camera;
@@ -34,7 +35,11 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public ArrayList<Entity> paintLayer2 = new ArrayList<>();
 	public ArrayList<Entity> paintLayer3 = new ArrayList<>();
 
-	public GameHandler(LevelMap _levelMap){levelMap = _levelMap; levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);}
+	public GameHandler(LevelMap _levelMap)
+	{
+		levelMap = _levelMap; 
+		levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);
+	}
 
 	public void init() {
 

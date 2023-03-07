@@ -40,8 +40,10 @@ public class Constants{
 	// points
 	public static final float COMBO_TIME = 2f;
 	public static final float COMBO_MAX_MULTIPLIER = 16f;
-	public static final float REWARD_DISPLAY_FRAMES = 60f;
+	public static final int   REWARD_DISPLAY_FRAMES = 60;
 	public static final Color REWARD_DISPLAY_COLOR = Color.WHITE;
+	public static final float TIME_POINTS_FOR_LIFE = 0.1f;
+	public static final int   POINTS_FOR_LIFE_REWARD = 1;
 
 	//itemBox
 	public static final int itemBoxDimensions = 30;
@@ -71,6 +73,7 @@ public class Constants{
 	public static final Color textColor = Color.black;
 	public static final Color playerGridColor = Color.red;
 	public static final Color enemyGridColor = Color.green.darker();
+	public static final Color spawnerGridColor = Color.yellow;
 	public static final Color itemBoxGridColor = Color.blue.darker();
 	public static final Color backgroundColor = Color.gray.darker().darker();
 	public static final Color prjColor = Color.black;

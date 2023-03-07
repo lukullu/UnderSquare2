@@ -3,9 +3,11 @@ package com.lukullu.undersquare.common;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
+import com.lukullu.undersquare.game.entity.inert.Spawner;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.game.item.Item;
@@ -87,8 +89,26 @@ public class IO implements ProcessingClass {
                     output[i][j] = new LevelGeometry(new Vector2(j * mapGridSize, i * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
                 }else{
                     if(mapData[i][j] == 'p'){ UnderSquare.getGameHandler().entities.add(new Player(new Vector2(j * mapGridSize  + mapGridSize/2 - playerDimensions/2, i * mapGridSize  + mapGridSize/2 - playerDimensions/2), new Vector2(playerDimensions,playerDimensions))); }
-                    if(mapData[i][j] == 'e'){ UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(j * mapGridSize  + mapGridSize/2 - enemyDimensions/2, i * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions))); enemyCounter++;}
                     if(mapData[i][j] == 'i'){ UnderSquare.getGameHandler().entities.add(new ItemBox(new Vector2(j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2), new Vector2(itemBoxDimensions,itemBoxDimensions), itemIndicesMap.get(map.itemBoxFillData[itemCounter]))); itemCounter++;}
+                    
+                    if(mapData[i][j] == 'e'){
+                        
+                        switch(map.enemyFillData[enemyCounter])
+                        {
+
+                            case 0: 
+                                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(j * mapGridSize  + mapGridSize/2 - enemyDimensions/2, i * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
+                                break;
+                            case 1:
+                                Debug.displayConst("You done fucked up mate");
+                                break;
+
+                        }
+
+                        enemyCounter++;
+                    }
+
+                    if(mapData[i][j] == 's'){ UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(j * mapGridSize  + mapGridSize/2, i * mapGridSize  + mapGridSize/2), new Vector2(0,0), -1, 0)); }
                 }
             }
         }
@@ -190,6 +210,7 @@ public class IO implements ProcessingClass {
 
         levelMap.enemyFillData = enemyIndices;
         levelMap.itemBoxFillData = itemIndices;
+        levelMap.settings = UnderSquare.getLevelEditor().curSettings;
 
 
         return levelMap;

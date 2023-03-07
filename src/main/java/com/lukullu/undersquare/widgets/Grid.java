@@ -94,6 +94,9 @@ public class Grid implements ProcessingClass {
 					case 'e':
 						fill(enemyGridColor.getRGB());
 						break;
+					case 's':
+						fill(spawnerGridColor.getRGB());
+						break;
 					case 'i':
 						fill(itemBoxGridColor.getRGB());
 						break;

@@ -1,4 +1,4 @@
-package com.lukullu.undersquare.game.entity.enemy.effect;
+package com.lukullu.undersquare.game.entity.effect;
 
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.Constants;
@@ -12,7 +12,7 @@ public class PointReward extends Effect {
     private int amount;
     private float decreaseByPerFrame = 1;
 
-    public PointReward(Vector2 _pos, Vector2 _dim, float _ftl, int _amount)
+    public PointReward(Vector2 _pos, Vector2 _dim, int _ftl, int _amount)
     {
         super(_pos, _dim, _ftl);
 
