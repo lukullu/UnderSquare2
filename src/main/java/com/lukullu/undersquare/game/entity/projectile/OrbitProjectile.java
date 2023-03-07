@@ -36,7 +36,7 @@ public class OrbitProjectile extends Projectile {
 		inertiaCoefficient = _inertiaCoefficient;
 		c = prjColor;
 	}
-	
+
 	public void simulate() {
 
 		deltaPos = new Vector2(0,0);

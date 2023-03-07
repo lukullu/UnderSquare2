@@ -103,11 +103,15 @@ public class Entity implements ProcessingClass, Serializable {
 
 	public void behavior() {}
 	public void takeDMG(Entity collider){ if(iFrameTimeCounter <= 0){ HP -= collider.dmg; if(HP <= 0){ onDeath(collider); } iFrameTimeCounter = I_FRAME_TIME;} }
-	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
 	public void kills(Entity victim){}
 	public void onDeath(Entity cause){ cause.kills(this) ; UnderSquare.getGameHandler().entitiesToDie.add(this); }
 	
-	
+	public void takeKnockback(Vector2 amount)
+	{ 
+		force.x += amount.x * innertiaCoefficient; 
+		force.y += amount.y * innertiaCoefficient; 
+	}
+
 	public void gainPoints(int amount, Entity victim)
 	{ 
 		points += amount; 
@@ -187,6 +191,7 @@ public class Entity implements ProcessingClass, Serializable {
 				pos.y - HEALTH_BAR_HEIGHT * 2
 		);
 
+		fill(HP_BAR_BORDER_COLOR.getRGB());
 		rect(hbPos.x,hbPos.y, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, 3,3,3,3);
 
 		fill(HP_BAR_HEALTH_COLOR.getRGB());
