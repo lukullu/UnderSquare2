@@ -131,7 +131,7 @@ public class Player extends Entity implements Serializable {
 
 
 		// points for life
-		if(UnderSquare.getGameHandler().levelMap.settings.pointsForLife)
+		if(UnderSquare.getGameHandler().levelMap.settings.gameSettings[0] == 1)
 		{
 			if(pointsForLifeDelay >= TIME_POINTS_FOR_LIFE)
 			{

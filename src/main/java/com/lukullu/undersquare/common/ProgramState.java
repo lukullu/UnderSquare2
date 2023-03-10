@@ -1,6 +1,6 @@
 package com.lukullu.undersquare.common;
 
-import com.lukullu.undersquare.game.LevelMap;
+import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.game.camera.Camera;
 
 import java.io.File;

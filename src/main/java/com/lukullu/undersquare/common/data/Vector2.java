@@ -1,7 +1,13 @@
 package com.lukullu.undersquare.common.data;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.Objects;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
 public class Vector2 implements Serializable {
 	
@@ -69,5 +75,21 @@ public class Vector2 implements Serializable {
 		
 	}
 	
+	public static class Deserializer implements JsonDeserializer<Vector2>
+	{
+
+		@Override
+		public Vector2 deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException 
+		{
+
+			String sJson = json.getAsString();
+			sJson = sJson.substring("Vec2(".length(), sJson.length() - 1);
+			String[] values = sJson.split(", ");
+
+			return new Vector2(Float.parseFloat(values[0]), Float.parseFloat(values[1]));
+
+		}
+		
+	}
 	
 }

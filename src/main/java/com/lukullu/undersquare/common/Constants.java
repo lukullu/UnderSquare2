@@ -116,7 +116,8 @@ public class Constants{
 
 	public static final String[] enemyTypeNames =
 			{
-					"Bouncer"
+					"Bouncer",
+					"Spawner"
 			};
 
 	public static final String[] itemTypeNames =
@@ -149,7 +150,12 @@ public class Constants{
 	public static final float innertiaCoefficient = 0.25f;
 	
 	// I/O
-	public static final Gson GSON = new GsonBuilder().setLenient().setPrettyPrinting().create();
+	public static final Gson GSON = new GsonBuilder()
+	.setLenient()
+	.setPrettyPrinting().registerTypeAdapter(Vector2.class, new Vector2.Deserializer())
+	.create();
+
+
 	public static final File MAPS_BASE_DIR = new File("./data/maps/");
 
 

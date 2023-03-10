@@ -2,12 +2,13 @@ package com.lukullu.undersquare.common;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.data.LevelMap;
+import com.lukullu.undersquare.common.data.MapData;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
-import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
-import com.lukullu.undersquare.game.entity.inert.Spawner;
+import com.lukullu.undersquare.game.entity.enemy.Spawner;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.game.item.Item;
@@ -73,34 +74,83 @@ public class IO implements ProcessingClass {
     }
 
     //TODO: Read item and enemy types from pos and index in int array
-    public static LevelGeometry[][] createMapElements(char[][] mapData, boolean[][] collisionData, LevelMap map){
+    public static LevelGeometry[][] createMapElements(char[][] map, boolean[][] collisionData, LevelMap levelMap){
 
         Map<Integer, Item> itemIndicesMap = loadItemIndicesMap();
 
-        LevelGeometry[][] output = new LevelGeometry[mapData.length][mapData[0].length];
+        LevelGeometry[][] output = new LevelGeometry[map.length][map[0].length];
         UnderSquare.getGameHandler().entities = new ArrayList<>();
 
         int itemCounter = 0;
         int enemyCounter = 0;
+        int playerCounter = 0;
 
-        for(int i = 0; i < mapData.length; i++){
-            for(int j = 0; j < mapData[0].length; j++){
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[0].length; j++){
                 if(collisionData[i][j]){
-                    output[i][j] = new LevelGeometry(new Vector2(j * mapGridSize, i * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
+                    output[j][i] = new LevelGeometry(new Vector2(j * mapGridSize, i * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
                 }else{
-                    if(mapData[i][j] == 'p'){ UnderSquare.getGameHandler().entities.add(new Player(new Vector2(j * mapGridSize  + mapGridSize/2 - playerDimensions/2, i * mapGridSize  + mapGridSize/2 - playerDimensions/2), new Vector2(playerDimensions,playerDimensions))); }
-                    if(mapData[i][j] == 'i'){ UnderSquare.getGameHandler().entities.add(new ItemBox(new Vector2(j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2), new Vector2(itemBoxDimensions,itemBoxDimensions), itemIndicesMap.get(map.itemBoxFillData[itemCounter]))); itemCounter++;}
                     
-                    if(mapData[i][j] == 'e'){
+                    if(map[j][i] == 'p')
+                    { 
                         
-                        switch(map.enemyFillData[enemyCounter])
+                        UnderSquare.getGameHandler().entities.add(
+                            new Player(
+                                new Vector2(
+                                    i * mapGridSize  + mapGridSize/2 - playerDimensions/2,
+                                    j * mapGridSize  + mapGridSize/2 - playerDimensions/2
+                                ), 
+                                new Vector2(
+                                    playerDimensions,
+                                    playerDimensions
+                                )   
+                            )
+                        ); 
+
+                        playerCounter++;
+                    }
+                    
+                    
+                    if(map[j][i] == 'i')
+                    { 
+                        
+                        UnderSquare.getGameHandler().entities.add(
+                            new ItemBox(
+                                new Vector2(
+                                    i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
+                                    j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
+                                ),
+                                new Vector2(
+                                    itemBoxDimensions,
+                                    itemBoxDimensions
+                                ), 
+                                itemIndicesMap.get(
+                                    levelMap.settings.itemSettings.get(
+                                        new Vector2(
+                                            j, 
+                                            i
+                                        )
+                                    )[0]
+                                )
+                            )
+                        ); 
+                            
+                        itemCounter++;
+                    
+                    }
+                    
+
+                    if(map[j][i] == 'e')
+                    {   
+
+                        switch(levelMap.settings.enemySettings.get(new Vector2(j, i))[0])
                         {
 
                             case 0: 
-                                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(j * mapGridSize  + mapGridSize/2 - enemyDimensions/2, i * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
+                                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
                                 break;
                             case 1:
-                                Debug.displayConst("You done fucked up mate");
+                            UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions), -1, 0));
                                 break;
 
                         }
@@ -108,7 +158,6 @@ public class IO implements ProcessingClass {
                         enemyCounter++;
                     }
 
-                    if(mapData[i][j] == 's'){ UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(j * mapGridSize  + mapGridSize/2, i * mapGridSize  + mapGridSize/2), new Vector2(0,0), -1, 0)); }
                 }
             }
         }
@@ -119,9 +168,9 @@ public class IO implements ProcessingClass {
 
         File[] mapFiles = MAPS_BASE_DIR.listFiles((file) -> file.isFile() && file.getName().toLowerCase(Locale.ROOT).endsWith(".json"));
 
-        Map<String,String> output = new HashMap<>();
+        System.out.println(mapFiles.length);
 
-        if(mapFiles == null) { return output; }
+        Map<String,String> output = new HashMap<>();
 
         for(File file : mapFiles) {
             try (FileReader reader = new FileReader(file)) {
@@ -133,92 +182,13 @@ public class IO implements ProcessingClass {
 
                 output.put(mapName,file.getPath());
 
-            } catch(Exception e){}
+            } catch(Exception e){e.printStackTrace();}
         }
 
         return output;
-    }
-
-    public static Map<Vector2,Integer> getItemPositionsfromIndices(LevelMap levelMap){
-
-        int itemBoxAmount = 0;
-
-        Map<Vector2,Integer> output = new HashMap<>();
-
-        for(int i = 0; i < levelMap.mapData.length; i++){
-            for (int j = 0; j < levelMap.mapData[0].length; j++){
-
-                if(levelMap.mapData[i][j] == 'i'){ output.put(new Vector2(i,j),levelMap.itemBoxFillData[itemBoxAmount]);itemBoxAmount++;}
-
-            }
-        }
-
-        return output;
-    }
-
-    public static Map<Vector2,Integer> getEnemyPositionsfromIndices(LevelMap levelMap){
-
-        int enemyAmount = 0;
-
-        Map<Vector2,Integer> output = new HashMap<>();
-
-        for(int i = 0; i < levelMap.mapData.length; i++){
-            for (int j = 0; j < levelMap.mapData[0].length; j++){
-
-                if(levelMap.mapData[i][j] == 'e'){ output.put(new Vector2(j,i),enemyAmount);enemyAmount++;}
-
-            }
-        }
-
-        return output;
-    }
-
-    public static LevelMap getEntityIndices(LevelMap levelMap){
-
-        int enemyAmount = 0;
-        int itemBoxAmount = 0;
-
-        for(int i = 0; i < levelMap.mapData.length; i++){
-            for (int j = 0; j < levelMap.mapData[0].length; j++){
-
-                if(levelMap.mapData[i][j] == 'e'){enemyAmount++;}
-                if(levelMap.mapData[i][j] == 'i'){itemBoxAmount++;}
-
-            }
-        }
-
-        int[] enemyIndices = new int[enemyAmount];
-        int[] itemIndices = new int[itemBoxAmount];
-
-        int itemBoxCounter = 0;
-        int enemyCounter = 0;
-
-        for(int i = 0; i < levelMap.mapData.length; i++){
-            for (int j = 0; j < levelMap.mapData[0].length; j++){
-
-                if( levelMap.mapData[i][j] == 'i' && UnderSquare.getLevelEditor().itemIndicesMap.containsKey(new Vector2(i,j))){
-                    itemIndices[itemBoxCounter] = UnderSquare.getLevelEditor().itemIndicesMap.get(new Vector2(i,j));
-                    itemBoxCounter++;
-                }
-
-                if(levelMap.mapData[i][j] == 'e' && UnderSquare.getLevelEditor().enemyIndicesMap.containsKey(new Vector2(i,j))){
-                    enemyIndices[enemyCounter] = UnderSquare.getLevelEditor().enemyIndicesMap.get(new Vector2(i,j));
-                    enemyCounter++;
-                }
-            }
-        }
-
-        levelMap.enemyFillData = enemyIndices;
-        levelMap.itemBoxFillData = itemIndices;
-        levelMap.settings = UnderSquare.getLevelEditor().curSettings;
-
-
-        return levelMap;
     }
 
     public static void saveLevelMapAsJson(LevelMap levelmap, File file) {
-
-        levelmap = getEntityIndices(levelmap);
 
         try {
             String json = GSON.toJson(levelmap);

@@ -21,7 +21,6 @@ public class ItemBox extends Entity implements Serializable {
         rotation += ITEM_ROTATION_RATE;
         rotation %= 2 * Math.PI;
         scale = (float)(Math.sin(System.currentTimeMillis() / 800.0) * 0.2 + 1);
-
     }
 
     @Override

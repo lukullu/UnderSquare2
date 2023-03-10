@@ -5,9 +5,10 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
+import com.lukullu.undersquare.common.data.LevelMap;
+import com.lukullu.undersquare.common.data.MapData;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.data.settings.Settings;
-import com.lukullu.undersquare.game.LevelMap;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
@@ -21,6 +22,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.lang.model.util.ElementScanner14;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
@@ -44,10 +47,9 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public File fileToBeLoaded;
 
 	public int curItemIndex = 0;
-	public Map<Vector2,Integer> itemIndicesMap = new HashMap<>();
 	public int curEnemyIndex = 0;
-	public Map<Vector2,Integer> enemyIndicesMap = new HashMap<>();
-	public Settings curSettings = new Settings();
+
+	public MapData curMapData = new MapData();
 
 
 	@Override
@@ -56,6 +58,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		UnderSquare.INSTANCE.cursor(ARROW);
 		setLevel(null,null);
 		curGrid = new Grid(new Vector2(scaleToScreenY(950),scaleToScreenY(950)),32,mapToBeLoaded, fileToBeLoaded);
+		curMapData.initMapData(mapToBeLoaded);
 		initWidgets();
 		displayFiles(IO.collectFiles());
 		
@@ -264,8 +267,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 	public void openMenu(Vector2 pos){
 
-		char selected = UnderSquare.getLevelEditor().curGrid.map.mapData[(int)pos.x][(int)pos.y];
+		char selected = UnderSquare.getLevelEditor().curGrid.map.map[(int)pos.x][(int)pos.y];
 		tileSettings.widgets = new ArrayList<>();
+
+		int defaultValue = 0;
 
 		switch (selected){
 			case 'p':
@@ -295,11 +300,18 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				break;
 			case 'i':
 
-				int defaultValue = 0;
-				if(KeyHandler.shift) defaultValue = curItemIndex;
-				if(!itemIndicesMap.containsKey(pos))itemIndicesMap.put(pos,curItemIndex);
+				if(curMapData.itemSettings.containsKey(pos))
+					curItemIndex = curMapData.getItemSetting(pos, 0);
+					else
+					{
+						curMapData.itemSettings.put(pos, new int[MapData.itemSettingsAmount]);
+						curMapData.setItemSetting(pos, curItemIndex, 0);
+					}
 
-				curItemIndex = itemIndicesMap.getOrDefault(pos, defaultValue);
+				//if(KeyHandler.shift) defaultValue = curItemIndex;
+				//if(!curMapData.itemSettings.containsKey(pos)) curMapData.setItemSetting(pos, curItemIndex, 0);
+				//curItemIndex = itemIndicesMap.getOrDefault(pos, defaultValue);
+
 				tileSettings.widgets.add(
 						new TextWidget(
 								new Vector2(scaleToScreenX(10),0),
@@ -323,6 +335,19 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				);
 				break;
 			case 'e':
+
+				if(curMapData.itemSettings.containsKey(pos))
+					curEnemyIndex = curMapData.getEnemySetting(pos, 0);
+				else
+				{
+					curMapData.enemySettings.put(pos, new int[MapData.enemySettingsAmount]);
+					curMapData.setEnemySetting(pos, curEnemyIndex, 0);
+				}
+
+				//if(KeyHandler.shift) defaultValue = curEnemyIndex;
+
+				//if(!curMapData.enemySettings.containsKey(pos)) curMapData.setEnemySetting(pos, curItemIndex, 0);
+
 				tileSettings.widgets.add(
 						new TextWidget(
 								new Vector2(scaleToScreenX(10),0),
@@ -346,41 +371,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				);
 
 				break;
-			case 's':
-				tileSettings.widgets.add(
-						new TextWidget(
-								new Vector2(scaleToScreenX(10),0),
-								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
-								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								"Spawner Settings:",
-								DEFAULT_TEXT_SIZE, CORNER
-						)
-				);
-
-				tileSettings.widgets.add(
-						new ButtonWidget(
-								new Vector2(scaleToScreenX(10),0),
-								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
-								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								"TODO: Limited (T/F)",
-								DEFAULT_TEXT_SIZE,
-								CENTER,
-								() -> {}
-						)
-				);
-				tileSettings.widgets.add(
-						new ButtonWidget(
-								new Vector2(scaleToScreenX(10),0),
-								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
-								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								"TODO: How Limited?",
-								DEFAULT_TEXT_SIZE,
-								CENTER,
-								() -> {}
-						)
-				);
-
-				break;
+				
 			default:
 				tileSettings.widgets.add(
 						new TextWidget(
@@ -397,7 +388,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(10),0),
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								curSettings.pointsForLife ? "Points for Life: On " : "Points for Life: Off",
+								curMapData.gameSettings[0] == 1 ? "Points for Life: On " : "Points for Life: Off",
 								DEFAULT_TEXT_SIZE,
 								CENTER,
 								() -> {togglePointsForLife();}
@@ -413,7 +404,16 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		curEnemyIndex++;
 		curEnemyIndex %= enemyTypeNames.length;
 
-		enemyIndicesMap.put(pos,curEnemyIndex);
+		if(curMapData.enemySettings.containsKey(pos))
+			curMapData.setEnemySetting(pos, curEnemyIndex, 0);
+		else
+		{
+		
+			curMapData.enemySettings.put(pos,new int[MapData.enemySettingsAmount]);
+			curMapData.setEnemySetting(pos, curEnemyIndex, 0);
+
+		}
+
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
 			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(enemyTypeNames[curEnemyIndex]);}
 
@@ -423,10 +423,16 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		curItemIndex++;
 		curItemIndex %= itemTypeNames.length;
 
-		itemIndicesMap.put(pos,curItemIndex);
-		//println(itemIndicesMap.get(pos));
-		//println(pos);
-		//println(pos + "|" + curItemIndex);
+		if(curMapData.itemSettings.containsKey(pos))
+			curMapData.setItemSetting(pos, curItemIndex, 0);
+		else
+		{
+		
+			curMapData.itemSettings.put(pos,new int[MapData.itemSettingsAmount]);
+			curMapData.setItemSetting(pos, curItemIndex, 0);
+
+		}
+
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
 			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(itemTypeNames[curItemIndex]);}
 	}
@@ -434,10 +440,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public void togglePointsForLife()
 	{
 
-		curSettings.pointsForLife = !curSettings.pointsForLife;
+		curMapData.gameSettings[0] = (curMapData.gameSettings[0] + 1) % 2;
 
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
-			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curSettings.pointsForLife ? "Points for Life: On " : "Points for Life: Off");}
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curMapData.gameSettings[0] == 1 ? "Points for Life: On " : "Points for Life: Off");}
 	}
 
 	public void initLegend(){
@@ -507,23 +513,6 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						"Enemy ... E",
 						DEFAULT_TEXT_SIZE,
 						enemyGridColor
-				)
-		);
-
-		legend.widgets.add(
-				new LegendWidget(
-						new Vector2(
-								scaleToScreenX(10),
-								scaleToScreenY(30)
-						),
-						new Vector2(
-								scaleToScreenX(180),
-								scaleToScreenY(24)
-						),
-						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
-						"Spawner ... S",
-						DEFAULT_TEXT_SIZE,
-						spawnerGridColor
 				)
 		);
 

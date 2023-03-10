@@ -9,7 +9,6 @@ import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.Grid;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.IO.getItemPositionsfromIndices;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
@@ -48,9 +47,8 @@ public class LoadMapButton extends ButtonWidget {
 			assert UnderSquare.getLevelEditor() != null;
 			if (UnderSquare.getLevelEditor().mapToBeLoaded != null){
 				UnderSquare.getLevelEditor().tileSettings.reset();
-				UnderSquare.getLevelEditor().itemIndicesMap = getItemPositionsfromIndices(UnderSquare.getLevelEditor().mapToBeLoaded);
-				UnderSquare.getLevelEditor().curSettings = UnderSquare.getLevelEditor().mapToBeLoaded.settings;
-				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenY(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
+				UnderSquare.getLevelEditor().curMapData = UnderSquare.getLevelEditor().mapToBeLoaded.settings;
+				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenY(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.map.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
 			}
 		} else
 		if(UnderSquare.state instanceof MainMenu){

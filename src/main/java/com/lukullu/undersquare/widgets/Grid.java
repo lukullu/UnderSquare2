@@ -3,8 +3,9 @@ package com.lukullu.undersquare.widgets;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.KeyHandler;
+import com.lukullu.undersquare.common.data.LevelMap;
+import com.lukullu.undersquare.common.data.MapData;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.game.LevelMap;
 
 import java.io.File;
 
@@ -34,15 +35,13 @@ public class Grid implements ProcessingClass {
 
 		if(map == null){
 			map = new LevelMap();
-			map.mapData = gridFill(' ');
+			map.map = gridFill(' ');
 			map.name = "test";      //TODO: textfield for map name
 			map.author = "Lukullu"; //TODO: textfield for author name
 			map.gridSize = 80;      //TODO: button for choosing gridSize
-			map.enemyFillData = new int[0];
-			map.itemBoxFillData = new int[0];
+			map.settings = new MapData();
 			map.senderReceiverPairingIDs = new int[0];
 			map.packHierarchy = 0;
-
 		}
 
 		offsetX = Math.round((getWidth()/2f -  dim.x/2f));
@@ -81,7 +80,7 @@ public class Grid implements ProcessingClass {
 			
 			for(int j = 0; j < size; j++){
 				
-				switch((""+map.mapData[i][j]).toLowerCase().charAt(0)){
+				switch((""+map.map[i][j]).toLowerCase().charAt(0)){
 					case '#':
 						fill(wallGridColor.getRGB());
 						break;
@@ -124,7 +123,7 @@ public class Grid implements ProcessingClass {
 		if(getMousePressed()){
 			if(getMouseButton() == LEFT) {
 				try {
-					map.mapData
+					map.map
 							[(int)Math.floor((getMouseY() - offsetY) / (dim.y / (float)size))]
 							[(int)Math.floor((getMouseX() - offsetX) / (dim.x / (float)size))]
 							= ("" + KeyHandler.lastPressedKey).toLowerCase().charAt(0);

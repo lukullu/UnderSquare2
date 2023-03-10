@@ -4,10 +4,10 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
+import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.networking.ClientGameHandler;
 import com.lukullu.undersquare.networking.HostGameHandler;
 import com.lukullu.undersquare.widgets.ScrollWidget;
@@ -123,6 +123,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 UI_CONTRAST_COLOR
         );
 
+        /* 
         tempTitleScreen = new TextWidget(
                 new Vector2(
                         scaleToScreenX(600),
@@ -133,6 +134,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
                 "UnderSquare", 110
                 , LEFT);
+        */
 
         exitButton = new ButtonWidget(
                 new Vector2(
@@ -209,7 +211,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         scrollListFiller.paint();
         loadButton.paint();
         editorButton.paint();
-        tempTitleScreen.paint();
+        //tempTitleScreen.paint();
         exitButton.paint();
         //TEMPJoinButton.paint();
         //hostButton.paint();

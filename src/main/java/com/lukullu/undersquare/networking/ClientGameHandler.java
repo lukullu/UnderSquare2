@@ -4,8 +4,8 @@ import com.kilix.p2p.client.KilixP2PClient;
 import com.kilix.p2p.client.KilixP2PClientImpl;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.KeyHandler;
+import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.menu.DeathMenu;
 

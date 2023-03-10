@@ -44,16 +44,16 @@ public class DeathMenu extends ProgramState implements ProcessingClass {
         textSize(24);
         deathMessage = new TextWidget(
                 new Vector2(
-                        getWidth()/2 - (scaleToScreenX(40) + textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]))/2f,
-                        getHeight()/2 - scaleToScreenY(160)
+                        getWidth()/2 - (scaleToScreenX(100)), //+ textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]))/2f,
+                        getHeight()/2 - scaleToScreenY(140)
                 ),
                 new Vector2(
-                        scaleToScreenX(40) + textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]),
-                        scaleToScreenY(60)
+                        scaleToScreenX(200),// + textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]),
+                        scaleToScreenY(40)
                 ),
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
                 RANDOM_DEATH_MESSAGES[deathMessageIndex],
-                24,
+                DEFAULT_TEXT_SIZE,
                 CENTER
         );
 

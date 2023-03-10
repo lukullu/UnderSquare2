@@ -1,22 +1,11 @@
 package com.lukullu.undersquare.widgets.button;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.NoSuchFileException;
-
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
-import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.menu.MainMenu;
-import com.lukullu.undersquare.widgets.Grid;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.IO.getItemPositionsfromIndices;
-import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
-import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class DeleteMapButton extends ButtonWidget {
 

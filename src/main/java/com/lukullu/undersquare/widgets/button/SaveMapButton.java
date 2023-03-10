@@ -43,6 +43,8 @@ public class SaveMapButton extends ButtonWidget implements ProcessingClass {
 	@Override
 	public void onClick(){
 
+		
+
 		assert UnderSquare.getLevelEditor() != null;
 		if(UnderSquare.getLevelEditor().curGrid.map.name != "Empty Template")
 

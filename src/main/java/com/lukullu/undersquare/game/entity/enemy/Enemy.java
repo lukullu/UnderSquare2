@@ -1,7 +1,9 @@
 package com.lukullu.undersquare.game.entity.enemy;
 
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.Entity;
+import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
 import java.io.Serializable;
 
@@ -15,7 +17,7 @@ public class Enemy extends Entity implements Serializable {
 		super(_pos, _dim, _pointReward);
 		c = enemyColor;
 	}
-	
+
 	@Override
 	public void simulate() {
 		

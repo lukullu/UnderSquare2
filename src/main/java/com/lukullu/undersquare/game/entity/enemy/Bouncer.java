@@ -3,6 +3,7 @@ package com.lukullu.undersquare.game.entity.enemy;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
 import java.io.Serializable;
@@ -21,18 +22,18 @@ public class Bouncer extends Enemy implements ProcessingClass, Serializable {
 		HP = startingHP;
 		dmg = bouncerContactDMG;
 	}
-
+	
 	@Override
 	public void collide(){
 
 		for(int i = 0; i < entityColliders.size(); i++){
-			if(!(entityColliders.get(i) instanceof Enemy))takeDMG(entityColliders.get(i));
+			if(!(entityColliders.get(i) instanceof Enemy)){takeDMG(entityColliders.get(i));}
 			if (entityColliders.get(i) instanceof Projectile) takeKnockback(entityColliders.get(i).force);
 			else takeKnockback(new Vector2(  -entityColliders.get(i).force.x , -entityColliders.get(i).force.y));
 		}
 
 	}
-	
+
 	@Override
 	public void behavior() {
 

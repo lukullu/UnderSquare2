@@ -5,6 +5,9 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.game.GameHandler;
+import com.lukullu.undersquare.game.entity.Entity;
+import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
@@ -17,16 +20,17 @@ import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class PauseMenu extends ProgramState implements ProcessingClass{
 
-    public ProgramState pausedState;
+    public GameHandler pausedState;
 
     public Widget resumeButton;
     public Widget exitButton;
     public Widget titleText;
     public Widget retryButton;
+    public Widget pointReport;
 
     public boolean escapeReset = false;
 
-    public PauseMenu(ProgramState _pausedState){
+    public PauseMenu(GameHandler _pausedState){
         pausedState = _pausedState;
     }
 
@@ -47,16 +51,36 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         textSize(24);
         titleText = new TextWidget(
                 new Vector2(
-                        getWidth()/2 - (scaleToScreenX(40) + textWidth("PAUSE"))/2f,
-                        getHeight()/2 - scaleToScreenY(100)
+                        getWidth()/2 - (scaleToScreenX(100)),
+                        getHeight()/2 - scaleToScreenY(140)
                 ),
                 new Vector2(
-                        scaleToScreenX(40) + textWidth("PAUSE"),
-                        scaleToScreenY(60)
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
                 ),
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-                "PAUSE",
-                24,
+                "PAUSE MENU",
+                DEFAULT_TEXT_SIZE,
+                CENTER
+        );
+
+        int points = 0;
+        for (Entity entity : pausedState.entities) {
+                if (entity instanceof Player) points = entity.points; 
+        }
+
+        pointReport = new TextWidget(
+                new Vector2(
+                        getWidth()/2 - (scaleToScreenX(100)), //textWidth("You earned " + points +" Points"))/2f,
+                        getHeight()/2 - scaleToScreenY(80)
+                ),
+                new Vector2(
+                        scaleToScreenX(200), //textWidth("You earned " + points +" Points"),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                points +" Points Earned",
+                DEFAULT_TEXT_SIZE,
                 CENTER
         );
 
@@ -127,6 +151,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         exitButton.paint();
         titleText.paint();
         retryButton.paint();
+        pointReport.paint();
     }
 
 }

@@ -2,9 +2,9 @@ package com.lukullu.undersquare.networking;
 
 import com.kilix.p2p.client.KilixP2PClient;
 import com.lukullu.undersquare.common.ProgramState;
+import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.menu.HostPauseMenu;
 
 import java.util.Base64;

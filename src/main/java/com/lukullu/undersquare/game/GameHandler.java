@@ -5,8 +5,8 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
+import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.data.settings.Settings;
 import com.lukullu.undersquare.common.msc.Reversed;
 import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.game.camera.Camera;
@@ -38,14 +38,14 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public GameHandler(LevelMap _levelMap)
 	{
 		levelMap = _levelMap; 
-		levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);
+		levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.map);
 	}
 
 	public void init() {
 
 		UnderSquare.INSTANCE.noCursor();
 		cam = new Camera(new Vector2(scaleToScreenX((int)cameraPosition.x),scaleToScreenY((int)cameraPosition.y)),new Vector2(scaleToScreenX((int)cameraDimensions.x),scaleToScreenY((int)cameraDimensions.y)));
-		mapGeometry = IO.createMapElements(levelMap.mapData,IO.convertMapDataToCollisionData(levelMap.mapData), levelMap);
+		mapGeometry = IO.createMapElements(levelMap.map,IO.convertMapDataToCollisionData(levelMap.map), levelMap);
 
 	}
 	
