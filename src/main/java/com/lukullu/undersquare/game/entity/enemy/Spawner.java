@@ -1,29 +1,25 @@
 package com.lukullu.undersquare.game.entity.enemy;
 
-import java.util.Random;
-
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.collision.Collision;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
-import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
 public class Spawner extends Enemy{
     
-    private static int MAX_HP = 50;
+    private static final int MAX_HP = 50;
 
-    private static int TIME_BETWEEN_SPAWNS = 30;
-    private static int RANGE = Constants.mapGridSize / 4;
+    private static final int TIME_BETWEEN_SPAWNS = 300;
+
+    private static final Vector2 DIMENSIONS = new Vector2(40, 40);
 
     private float rotation = 0;
-    private float scale;
 
     public static int enemyID;
     public int counter = (int) random(0,TIME_BETWEEN_SPAWNS);
 
-    public Spawner(Vector2 _pos, Vector2 _dim, int _ftl, int _enemyID) {
-        super(_pos, _dim, 50); // TODO: Point Reward
+    public Spawner(Vector2 _pos, int _enemyID) {
+        super(_pos, DIMENSIONS, 50); // TODO: Point Reward
         enemyID = _enemyID;
         startingHP = MAX_HP;
 		HP = startingHP;
@@ -35,17 +31,17 @@ public class Spawner extends Enemy{
 
         if(counter <= 0)
         {
-            if(Collision.entityGridCollision(pos).size() == 1){
+            if(Collision.entityGridCollision(pos).size() <= 5){
                 switch(enemyID)
                 {
                         case 0: 
-                        UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(pos.x, pos.y), new Vector2(Constants.enemyDimensions, Constants.enemyDimensions)));
+                        UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(pos.x + dim.x/2, pos.y + dim.y/2)));
                             break;
                         case 1:
-                            UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(pos.x, pos.y), new Vector2(Constants.enemyDimensions, Constants.enemyDimensions),-1,0));
+                            UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(pos.x + dim.x/2, pos.y + dim.y/2),0));
                             break;
                         case 2:
-                            UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(pos.x, pos.y)));
+                            UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(pos.x + dim.x/2, pos.y)));
                             break;
                 }
                 counter = TIME_BETWEEN_SPAWNS;
@@ -74,7 +70,6 @@ public class Spawner extends Enemy{
     {
         rotation += Constants.ITEM_ROTATION_RATE;
         rotation %= 2 * Math.PI;
-        scale = (float)(Math.sin(System.currentTimeMillis() / 800.0) * 0.2 + 1);
     }
     
 
@@ -85,7 +80,7 @@ public class Spawner extends Enemy{
         translate(pos.x + dim.x/2, pos.y + dim.y/2);
         rotate(rotation);
         noStroke();
-        scale(scale);
+        //scale(scale);
         fill(Constants.enemyColor.getRGB());
         rectMode(CENTER);
         rect(0,0,dim.x,dim.y);

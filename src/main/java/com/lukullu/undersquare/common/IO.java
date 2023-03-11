@@ -3,9 +3,7 @@ package com.lukullu.undersquare.common;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.LevelMap;
-import com.lukullu.undersquare.common.data.MapData;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
 import com.lukullu.undersquare.game.entity.enemy.Persuer;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.game.item.Potion.*;
@@ -82,10 +79,6 @@ public class IO implements ProcessingClass {
         LevelGeometry[][] output = new LevelGeometry[map.length][map[0].length];
         UnderSquare.getGameHandler().entities = new ArrayList<>();
 
-        int itemCounter = 0;
-        int enemyCounter = 0;
-        int playerCounter = 0;
-
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map[0].length; j++){
                 if(collisionData[j][i]){
@@ -107,8 +100,6 @@ public class IO implements ProcessingClass {
                                 )   
                             )
                         ); 
-
-                        playerCounter++;
                     }
                     
                     
@@ -134,10 +125,7 @@ public class IO implements ProcessingClass {
                                     )[0]
                                 )
                             )
-                        ); 
-                            
-                        itemCounter++;
-                    
+                        );
                     }
                     
 
@@ -150,9 +138,7 @@ public class IO implements ProcessingClass {
                             type = levelMap.settings.enemySettings.get(new Vector2(j, i))[0];
 
                         spawnEnemy(type , i, j);
-                        enemyCounter++;
                     }
-
                 }
             }
         }
@@ -166,10 +152,10 @@ public class IO implements ProcessingClass {
         {
 
             case 0: 
-                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
+                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2)));
                 break;
             case 1:
-                UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions), -1, 2));
+                UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), 2));
                 break;
             case 2:
                 UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2)));

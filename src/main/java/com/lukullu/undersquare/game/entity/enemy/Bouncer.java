@@ -1,21 +1,20 @@
 package com.lukullu.undersquare.game.entity.enemy;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
-import java.io.Serializable;
 
 import static com.lukullu.undersquare.common.Constants.*;
 
-public class Bouncer extends Enemy implements ProcessingClass, Serializable {
+public class Bouncer extends Enemy{
+
+	private static final Vector2 DIMENSIONS = new Vector2(20, 20);
 
 	Vector2 initForce;
 
-	public Bouncer(Vector2 _pos, Vector2 _dim) {
-		super(_pos, _dim, bouncerPointReward);
+	public Bouncer(Vector2 _pos) {
+		super(_pos, DIMENSIONS, bouncerPointReward);
 		initForce = new Vector2(bouncerStartingForce.x * random(0.3, 1), bouncerStartingForce.y * random(0.3, 1));
 		force = initForce;
 		startingHP = bouncerHP;

@@ -14,24 +14,30 @@ import com.lukullu.undersquare.game.item.ItemBox;
 
 public class Persuer extends Enemy{
 
-    private static final int POINT_REWARD = 10;
+    private static final int POINT_REWARD = 1;
     private static final int MAX_HP = 3;
 
     private static final float TIME_BETWEEN_AQUISITIONS = 1;
-    private static final float MAX_DISTANCE_TO_TARGET = 1000;
+    private static final float MAX_DISTANCE_TO_TARGET = 800;
 
     private static final float PERSUE_FORCE = 400000;
+    private static final float IDLE_FORCE = 40000;
+
+    private static final float IDLE_ROTATION_SPEED = 2; 
+
+    
 
     private static final Vector2 DIMENSTIONS = new Vector2(8, 8);
 
     private static final int DMG = 2;
 
     private Entity curTarget;
-
     private float aquisitionTimer = 0;
 
+    private float rotation = 0;
+
     public Persuer(Vector2 _pos) {
-        super(_pos, DIMENSTIONS, POINT_REWARD);
+        super(new Vector2(_pos.x - DIMENSTIONS.x/2, _pos.y - 18), DIMENSTIONS, POINT_REWARD); // TODO: Calc radius
         startingHP = MAX_HP;
 		HP = startingHP;
         dmg = DMG;
@@ -43,7 +49,7 @@ public class Persuer extends Enemy{
 		for(int i = 0; i < entityColliders.size(); i++){
 			if(!(entityColliders.get(i) instanceof Enemy)){takeDMG(entityColliders.get(i));}
 			if (entityColliders.get(i) instanceof Projectile) takeKnockback(entityColliders.get(i).force);
-			else takeKnockback(new Vector2(  -entityColliders.get(i).force.x , -entityColliders.get(i).force.y));
+			//else takeKnockback(new Vector2(  -entityColliders.get(i).force.x , -entityColliders.get(i).force.y));
 		}
 
 	}
@@ -63,6 +69,18 @@ public class Persuer extends Enemy{
             force = new Vector2(unitDeltaPos.x * PERSUE_FORCE, unitDeltaPos.y * PERSUE_FORCE);
 
         }
+        else
+        {
+
+            // Idle Behavior
+            rotation += UnderSquare.deltaTime * IDLE_ROTATION_SPEED;
+		    rotation %= 2 * Math.PI;
+
+            Vector2 direction = new Vector2((float)Math.cos(rotation), (float)Math.sin(rotation));
+
+            force = new Vector2(direction.x * IDLE_FORCE, direction.y * IDLE_FORCE);
+
+        }
 
         // Aquire Target
         if(aquisitionTimer >= TIME_BETWEEN_AQUISITIONS)
@@ -73,6 +91,13 @@ public class Persuer extends Enemy{
         }
 
         aquisitionTimer += UnderSquare.deltaTime;
+
+    }
+
+    public float calcRadius()
+    {
+        //TODO: Implement
+        return (float)((IDLE_FORCE * Math.pow((Math.PI * 2) / IDLE_ROTATION_SPEED,2)) / (mass * Math.PI * 2));
 
     }
 
@@ -90,7 +115,6 @@ public class Persuer extends Enemy{
                 if(!(entity instanceof Enemy) && !(entity instanceof Projectile) && !(entity instanceof ItemBox) && !(entity instanceof Effect))
                 {
                     if(Geometry.getDistanceSquared(entity, this) < smallestDistance) possibleTargets.add(entity);
-                    print(Geometry.getDistanceSquared(entity, this) - smallestDistance);
                 }
             }
 
@@ -119,5 +143,29 @@ public class Persuer extends Enemy{
         return output;
 
     }
+
+    @Override
+    public void paintHealthBar(){
+
+        if(curTarget != null){
+
+            Vector2 hbPos = new Vector2(
+                    pos.x + dim.x/2f - Constants.HEALTH_BAR_WIDTH/2f,
+                    pos.y - Constants.HEALTH_BAR_HEIGHT * 2
+            );
+
+            fill(Constants.HP_BAR_BORDER_COLOR.getRGB());
+            rect(hbPos.x,hbPos.y, Constants.HEALTH_BAR_WIDTH, Constants.HEALTH_BAR_HEIGHT, 3,3,3,3);
+
+            fill(Constants.HP_BAR_HEALTH_COLOR.getRGB());
+            rect(hbPos.x,hbPos.y, Math.min((Constants.HEALTH_BAR_WIDTH / startingHP) * HP,Constants.HEALTH_BAR_WIDTH),Constants.HEALTH_BAR_HEIGHT, 3,3,3,3);
+
+            if(HP - startingHP > 0) {
+                fill(Constants.HP_BAR_OVERSHOOT_COLOR.getRGB());
+                rect(hbPos.x, hbPos.y, Math.min((Constants.HEALTH_BAR_WIDTH / startingHP) * (HP - startingHP), Constants.HEALTH_BAR_WIDTH), Constants.HEALTH_BAR_HEIGHT, 3, 3, 3, 3);
+            }
+
+        }
+	}
     
 }

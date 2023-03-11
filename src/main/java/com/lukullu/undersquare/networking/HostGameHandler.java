@@ -3,7 +3,6 @@ package com.lukullu.undersquare.networking;
 import com.kilix.p2p.client.KilixP2PClient;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.LevelMap;
-import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.menu.HostPauseMenu;
 
@@ -12,7 +11,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.lukullu.undersquare.common.Constants.PACKET_RATE;
-import static com.lukullu.undersquare.common.Constants.ZERO_VECTOR_2;
 
 public class HostGameHandler extends GameHandler {
 
