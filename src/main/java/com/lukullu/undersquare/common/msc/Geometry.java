@@ -10,4 +10,9 @@ public class Geometry {
 
     }
 
+    public static float getDistanceSquared(Entity e1, Entity e2)
+    {
+        return (float) (Math.pow(e1.pos.x - e2.pos.x,2) + Math.pow(e1.pos.y - e2.pos.y,2));
+    }
+
 }

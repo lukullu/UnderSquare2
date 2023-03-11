@@ -8,6 +8,7 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
+import com.lukullu.undersquare.game.entity.enemy.Persuer;
 import com.lukullu.undersquare.game.entity.enemy.Spawner;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
@@ -87,8 +88,8 @@ public class IO implements ProcessingClass {
 
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map[0].length; j++){
-                if(collisionData[i][j]){
-                    output[j][i] = new LevelGeometry(new Vector2(j * mapGridSize, i * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
+                if(collisionData[j][i]){
+                    output[j][i] = new LevelGeometry(new Vector2(i * mapGridSize, j * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
                 }else{
                     
                     if(map[j][i] == 'p')
@@ -143,18 +144,12 @@ public class IO implements ProcessingClass {
                     if(map[j][i] == 'e')
                     {   
 
-                        switch(levelMap.settings.enemySettings.get(new Vector2(j, i))[0])
-                        {
+                        int type = 0;
 
-                            case 0: 
-                                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
-                                break;
-                            case 1:
-                            UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions), -1, 0));
-                                break;
+                        if(levelMap.settings.enemySettings.get(new Vector2(j, i)) != null)
+                            type = levelMap.settings.enemySettings.get(new Vector2(j, i))[0];
 
-                        }
-
+                        spawnEnemy(type , i, j);
                         enemyCounter++;
                     }
 
@@ -164,11 +159,29 @@ public class IO implements ProcessingClass {
         return output;
     }
 
+    public static void spawnEnemy(int type, int i, int j)
+    {
+
+        switch(type)
+        {
+
+            case 0: 
+                UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions)));
+                break;
+            case 1:
+                UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2), new Vector2(enemyDimensions,enemyDimensions), -1, 2));
+                break;
+            case 2:
+                UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2)));
+                break;
+
+        }
+                        
+    }
+
     public static Map<String, String> collectFiles() {
 
         File[] mapFiles = MAPS_BASE_DIR.listFiles((file) -> file.isFile() && file.getName().toLowerCase(Locale.ROOT).endsWith(".json"));
-
-        System.out.println(mapFiles.length);
 
         Map<String,String> output = new HashMap<>();
 
@@ -213,5 +226,6 @@ public class IO implements ProcessingClass {
 
     }
 
-
 }
+
+

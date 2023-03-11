@@ -13,7 +13,7 @@ public class Spawner extends Enemy{
     
     private static int MAX_HP = 50;
 
-    private static int TIME_BETWEEN_SPAWNS = 300;
+    private static int TIME_BETWEEN_SPAWNS = 30;
     private static int RANGE = Constants.mapGridSize / 4;
 
     private float rotation = 0;
@@ -32,18 +32,21 @@ public class Spawner extends Enemy{
     @Override
     public void behavior()
     {
-        Debug.displayTemp("hiiii");
+
         if(counter <= 0)
         {
             if(Collision.entityGridCollision(pos).size() == 1){
                 switch(enemyID)
                 {
-                    case 0:
+                        case 0: 
                         UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(pos.x, pos.y), new Vector2(Constants.enemyDimensions, Constants.enemyDimensions)));
-                        break;
-                    case 1:
-                        Debug.displayConst("You done fucked up mate");
-                        break;
+                            break;
+                        case 1:
+                            UnderSquare.getGameHandler().entities.add(new Spawner(new Vector2(pos.x, pos.y), new Vector2(Constants.enemyDimensions, Constants.enemyDimensions),-1,0));
+                            break;
+                        case 2:
+                            UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(pos.x, pos.y)));
+                            break;
                 }
                 counter = TIME_BETWEEN_SPAWNS;
             }
@@ -60,7 +63,6 @@ public class Spawner extends Enemy{
 
 		for(int i = 0; i < entityColliders.size(); i++){
 			if(!(entityColliders.get(i) instanceof Enemy)){takeDMG(entityColliders.get(i));}
-			//if (entityColliders.get(i) instanceof Projectile) takeKnockback(entityColliders.get(i).force);
 		}
 
 	}
@@ -90,7 +92,6 @@ public class Spawner extends Enemy{
         popMatrix();
         rectMode(CORNER);
         stroke(1);
-        
     }
 
 }

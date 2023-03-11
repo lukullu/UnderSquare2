@@ -117,7 +117,8 @@ public class Constants{
 	public static final String[] enemyTypeNames =
 			{
 					"Bouncer",
-					"Spawner"
+					"Spawner",
+					"Persuer"
 			};
 
 	public static final String[] itemTypeNames =
