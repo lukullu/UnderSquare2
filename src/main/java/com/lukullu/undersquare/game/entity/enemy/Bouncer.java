@@ -9,7 +9,7 @@ import static com.lukullu.undersquare.common.Constants.*;
 
 public class Bouncer extends Enemy{
 
-	private static final Vector2 DIMENSIONS = new Vector2(20, 20);
+	private static final Vector2 DIMENSIONS = new Vector2(40, 40);
 
 	Vector2 initForce;
 

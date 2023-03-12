@@ -100,6 +100,9 @@ public class Constants{
 	//mapGrid
 	public static int mapGridSize = 160; // TODO: create way for this to be loaded with a map
 
+	// sensor/actor
+	public static final int ID_AMOUNT = 10; 
+
 	//LevelEdit  or
 	public static final int defaultGridSize = 32;
 
@@ -132,6 +135,20 @@ public class Constants{
 					"Small Potion",
 					"Medium Potion",
 					"Large Potion"
+			};
+
+	public static final Color[] CHANNEL_COLORS = 
+			{
+				Color.red,
+				Color.yellow,
+				Color.blue,
+				Color.magenta,
+				Color.green,
+				Color.orange,
+				Color.pink,
+				Color.cyan,
+				Color.white,
+				Color.gray
 			};
 
 	//prj

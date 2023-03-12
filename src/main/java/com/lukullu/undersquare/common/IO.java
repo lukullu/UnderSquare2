@@ -147,7 +147,12 @@ public class IO implements ProcessingClass {
                                     i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
                                     j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
                                 ),
-                                0
+                                levelMap.settings.actorSettings.get(
+                                    new Vector2(
+                                        j, 
+                                        i
+                                    )
+                                )[0]
                             )
                         );
                     
@@ -162,7 +167,12 @@ public class IO implements ProcessingClass {
                                     i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
                                     j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
                                 ),
-                                0
+                                levelMap.settings.sensorSettings.get(
+                                    new Vector2(
+                                        j, 
+                                        i
+                                    )
+                                )[0]
                             )
                         );
                     
@@ -171,7 +181,7 @@ public class IO implements ProcessingClass {
                 }
             }
         }
-        
+
         return output;
     }
 

@@ -2,6 +2,7 @@ package com.lukullu.undersquare.editor;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.LevelMap;
@@ -42,6 +43,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 	public int curItemIndex = 0;
 	public int curEnemyIndex = 0;
+	public int curIDIndex = 0;
 
 	public MapData curMapData = new MapData();
 
@@ -363,6 +365,74 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				);
 
 				break;
+
+			case 'a':
+
+				if(curMapData.actorSettings.containsKey(pos))
+					curIDIndex = curMapData.getActorSetting(pos, 0);
+				else
+				{
+					curMapData.actorSettings.put(pos, new int[MapData.actorSettingsAmount]);
+					curMapData.setActorSetting(pos, curIDIndex, 0);
+				}
+
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Actor Settings:",
+								DEFAULT_TEXT_SIZE, CORNER
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Channel: " + curIDIndex,
+								DEFAULT_TEXT_SIZE,
+								CENTER,
+								() -> {actorCycle(pos);}
+						)
+				);
+
+				break;
+
+			case 's':
+
+				if(curMapData.sensorSettings.containsKey(pos))
+					curMapData.setSensorSetting(pos, curIDIndex, 0);
+				else
+				{
+					curMapData.sensorSettings.put(pos,new int[MapData.sensorSettingsAmount]);
+					curMapData.setSensorSetting(pos, curIDIndex, 0);
+				}
+
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Sensor Settings:",
+								DEFAULT_TEXT_SIZE, CORNER
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Channel: " + curIDIndex,
+								DEFAULT_TEXT_SIZE,
+								CENTER,
+								() -> {sensorCycle(pos);}
+						)
+				);
+
+				break;
 				
 			default:
 				tileSettings.widgets.add(
@@ -427,6 +497,44 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
 			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(itemTypeNames[curItemIndex]);}
+	}
+	
+	public void actorCycle(Vector2 pos){
+		curIDIndex++;
+		curIDIndex %= Constants.ID_AMOUNT;
+
+		if(curMapData.actorSettings.containsKey(pos))
+			curMapData.setActorSetting(pos, curIDIndex, 0);
+		else
+		{
+		
+			curMapData.actorSettings.put(pos,new int[MapData.actorSettingsAmount]);
+			curMapData.setActorSetting(pos, curIDIndex, 0);
+
+		}
+
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curIDIndex+"");}
+
+	}
+
+	public void sensorCycle(Vector2 pos){
+		curIDIndex++;
+		curIDIndex %= Constants.ID_AMOUNT;
+
+		if(curMapData.sensorSettings.containsKey(pos))
+			curMapData.setSensorSetting(pos, curIDIndex, 0);
+		else
+		{
+		
+			curMapData.sensorSettings.put(pos,new int[MapData.sensorSettingsAmount]);
+			curMapData.setSensorSetting(pos, curIDIndex, 0);
+
+		}
+
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curIDIndex+"");}
+
 	}
 
 	public void togglePointsForLife()

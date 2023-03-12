@@ -10,7 +10,7 @@ import com.lukullu.undersquare.game.geometry.LevelGeometry;
 
 public class Actor extends Entity{
 
-    private static final Vector2 DIMENSIONS = new Vector2(30,30);
+    private static final Vector2 DIMENSIONS = new Vector2(15,15);
 
     public int id = -1;
     public Vector2 mapPos;
@@ -37,5 +37,12 @@ public class Actor extends Entity{
     {
 
     }
+
+    @Override
+    public void paint( Vector2 _pos, float opacity, boolean stroke){
+		if (stroke) stroke(1); else noStroke();
+		fill(Constants.CHANNEL_COLORS[id].getRGB(),opacity);
+		rect(_pos.x - Constants.mapGridSize/2 + 2*dim.x,_pos.y - Constants.mapGridSize/2 + 2*dim.y,dim.x,dim.y);
+	}
     
 }

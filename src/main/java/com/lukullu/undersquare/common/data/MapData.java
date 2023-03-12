@@ -108,6 +108,48 @@ public class MapData {
         return playerSettings.get(pos)[setting];
     }
 
+    // ---------------------------------------- ACTOR
+
+    public HashMap<Vector2,int[]> actorSettings = new HashMap<Vector2,int[]>();
+
+    public static int actorSettingsAmount = 1;
+    // [0] ... type
+
+    public void setActorSetting(Vector2 pos, int value, int setting)
+    {
+        int[] settings = actorSettings.get(pos);
+
+        settings[setting] = value;
+
+        actorSettings.put(pos, settings);
+    }
+
+    public int getActorSetting(Vector2 pos, int setting)
+    {
+        return actorSettings.get(pos)[setting];
+    }
+
+    // ---------------------------------------- Sensor
+
+    public HashMap<Vector2,int[]> sensorSettings = new HashMap<Vector2,int[]>();
+
+    public static int sensorSettingsAmount = 1;
+    // [0] ... id
+
+    public void setSensorSetting(Vector2 pos, int value, int setting)
+    {
+        int[] settings = sensorSettings.get(pos);
+
+        settings[setting] = value;
+
+        sensorSettings.put(pos, settings);
+    }
+
+    public int getSensorSetting(Vector2 pos, int setting)
+    {
+        return sensorSettings.get(pos)[setting];
+    }
+
     // ---------------------------------------- GAME
 
     public int[] gameSettings = new int[1];
