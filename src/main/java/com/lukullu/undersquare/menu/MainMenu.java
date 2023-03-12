@@ -8,15 +8,9 @@ import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.networking.ClientGameHandler;
-import com.lukullu.undersquare.networking.HostGameHandler;
 import com.lukullu.undersquare.widgets.ScrollWidget;
-import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
-import com.lukullu.undersquare.widgets.button.LoadMapButton;
-
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -1,11 +1,10 @@
 package com.lukullu.undersquare.widgets;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 
 import static com.lukullu.undersquare.common.Constants.*;
 
-public class TextWidget extends Widget implements ProcessingClass {
+public class TextWidget extends Widget{
 	
 	private String text;
 	public int textSize;

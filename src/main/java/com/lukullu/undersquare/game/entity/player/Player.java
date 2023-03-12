@@ -8,18 +8,14 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
-import com.lukullu.undersquare.game.entity.enemy.Enemy;
-import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.entityCollision;
 
-public class Player extends Entity implements Serializable {
+public class Player extends Entity{
 
 	public ArrayList<Weapon> weapons = new ArrayList<>();
 

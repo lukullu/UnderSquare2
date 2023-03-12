@@ -2,13 +2,13 @@ package com.lukullu.undersquare.game;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Reversed;
-import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
@@ -17,8 +17,8 @@ import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.menu.DeathMenu;
 import com.lukullu.undersquare.menu.PauseMenu;
 
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.lukullu.undersquare.common.msc.Translation.*;
 import static com.lukullu.undersquare.common.Constants.*;
@@ -93,6 +93,21 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 			entities.remove(entitiesToDie.get(i));
 		}
 		
+	}
+
+	public void updateGeometry(Vector2 pos)
+	{
+		if(mapGeometry[(int)pos.y][(int)pos.x] != null)
+        {
+            mapGeometry[(int)pos.y][(int)pos.x] = null;
+        }
+        else
+        {
+            mapGeometry[(int)pos.y][(int)pos.x] = new LevelGeometry(new Vector2((int)pos.x * Constants.mapGridSize, (int)pos.y * Constants.mapGridSize),new Vector2(Constants.mapGridSize,Constants.mapGridSize), Color.BLACK, true);
+        }
+
+		levelMap.collisionData[(int)pos.y][(int)pos.x] = !levelMap.collisionData[(int)pos.y][(int)pos.x];
+
 	}
 	
 	public void paint() {

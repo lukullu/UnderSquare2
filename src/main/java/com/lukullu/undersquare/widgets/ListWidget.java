@@ -1,6 +1,5 @@
 package com.lukullu.undersquare.widgets;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import static com.lukullu.undersquare.common.Constants.UI_CONTRAST_COLOR;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
-public class ListWidget extends Widget implements ProcessingClass {
+public class ListWidget extends Widget{
 
     public ArrayList<Widget> widgets = new ArrayList<>();
 

@@ -1,19 +1,16 @@
 package com.lukullu.undersquare.game.entity.projectile;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
 
-import java.io.Serializable;
-
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.prjColor;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
-public class Projectile extends Entity implements ProcessingClass, Serializable {
+public class Projectile extends Entity{
 
 	public int startingHP = 1;
 

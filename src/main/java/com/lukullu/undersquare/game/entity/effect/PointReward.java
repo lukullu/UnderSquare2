@@ -3,9 +3,6 @@ package com.lukullu.undersquare.game.entity.effect;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
-import com.lukullu.undersquare.game.entity.Entity;
-import static com.lukullu.undersquare.UnderSquare.deltaTime;
 
 public class PointReward extends Effect {
 

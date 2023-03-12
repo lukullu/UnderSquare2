@@ -1,6 +1,5 @@
 package com.lukullu.undersquare.widgets.button;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.data.Vector2;
@@ -10,7 +9,7 @@ import java.io.File;
 
 import static com.lukullu.undersquare.common.Constants.*;
 
-public class SaveMapButton extends ButtonWidget implements ProcessingClass {
+public class SaveMapButton extends ButtonWidget{
 	
 	public LevelEditor state;
 	

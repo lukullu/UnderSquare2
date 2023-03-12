@@ -7,13 +7,11 @@ import com.lukullu.undersquare.game.entity.projectile.*;
 
 import java.awt.*;
 import java.io.File;
-import java.io.Serializable;
 
 import static java.lang.Math.PI;
 
 public class Constants{
 
-	// TODO before handover: WTH is this:
 	public static final Vector2 ZERO_VECTOR_2 = new Vector2(0, 0);
 
 	//UX
@@ -75,6 +73,8 @@ public class Constants{
 	public static final Color enemyGridColor = Color.green.darker();
 	public static final Color spawnerGridColor = Color.yellow;
 	public static final Color itemBoxGridColor = Color.blue.darker();
+	public static final Color ACTOR_GRID_COLOR = Color.yellow.brighter();
+	public static final Color SENSOR_GRID_COLOR = Color.yellow.darker();
 	public static final Color backgroundColor = Color.gray.darker().darker();
 	public static final Color prjColor = Color.black;
 	public static final Color enemyColor = Color.black;

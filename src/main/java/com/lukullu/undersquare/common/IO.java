@@ -5,9 +5,12 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
-import com.lukullu.undersquare.game.entity.enemy.Enemy;
 import com.lukullu.undersquare.game.entity.enemy.Persuer;
 import com.lukullu.undersquare.game.entity.enemy.Spawner;
+import com.lukullu.undersquare.game.entity.interactable.actor.Actor;
+import com.lukullu.undersquare.game.entity.interactable.actor.Door;
+import com.lukullu.undersquare.game.entity.interactable.sensor.Button;
+import com.lukullu.undersquare.game.entity.interactable.sensor.Sensor;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.game.item.Item;
@@ -67,11 +70,6 @@ public class IO implements ProcessingClass {
         return itemIndicesMap;
     }
 
-    public static Map<Integer, Enemy> loadEnemyIndicesMap(){
-        return null; //TODO: implement if there are more enemies
-    }
-
-    //TODO: Read item and enemy types from pos and index in int array
     public static LevelGeometry[][] createMapElements(char[][] map, boolean[][] collisionData, LevelMap levelMap){
 
         Map<Integer, Item> itemIndicesMap = loadItemIndicesMap();
@@ -139,9 +137,41 @@ public class IO implements ProcessingClass {
 
                         spawnEnemy(type , i, j);
                     }
+
+                    if(map[j][i] == 'a')
+                    {
+
+                        UnderSquare.getGameHandler().entities.add(
+                            new Door(
+                                new Vector2(
+                                    i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
+                                    j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
+                                ),
+                                0
+                            )
+                        );
+                    
+                    }
+
+                    if(map[j][i] == 's')
+                    {
+
+                        UnderSquare.getGameHandler().entities.add(
+                            new Button(
+                                new Vector2(
+                                    i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
+                                    j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
+                                ),
+                                0
+                            )
+                        );
+                    
+                    }
+
                 }
             }
         }
+        
         return output;
     }
 

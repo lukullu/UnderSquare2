@@ -1,13 +1,12 @@
 package com.lukullu.undersquare.widgets;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 import java.awt.*;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.*;
 
-public class LegendWidget extends  TextWidget implements ProcessingClass {
+public class LegendWidget extends  TextWidget{
 
     Color color;
 

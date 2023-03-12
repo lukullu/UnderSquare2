@@ -10,7 +10,6 @@ import com.lukullu.undersquare.common.data.Vector2;
 import java.io.File;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.msc.Translation.*;
 
 public class Grid implements ProcessingClass {
 
@@ -93,11 +92,14 @@ public class Grid implements ProcessingClass {
 					case 'e':
 						fill(enemyGridColor.getRGB());
 						break;
-					case 's':
-						fill(spawnerGridColor.getRGB());
-						break;
 					case 'i':
 						fill(itemBoxGridColor.getRGB());
+						break;
+					case 'a':
+						fill(ACTOR_GRID_COLOR.getRGB());
+						break;
+					case 's':
+						fill(SENSOR_GRID_COLOR.getRGB());
 						break;
 					default:
 						fill(errorGridColor.getRGB());

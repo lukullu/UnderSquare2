@@ -2,7 +2,6 @@ package com.lukullu.undersquare;
 
 import com.kilix.p2p.client.KilixP2PClient;
 import com.kilix.processing.ProcessingSketch;
-import com.lukullu.undersquare.common.IO;
 
 import java.io.*;
 

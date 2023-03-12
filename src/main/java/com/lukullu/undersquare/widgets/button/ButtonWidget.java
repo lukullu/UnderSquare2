@@ -1,6 +1,5 @@
 package com.lukullu.undersquare.widgets.button;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.widgets.TextWidget;
@@ -8,7 +7,7 @@ import com.lukullu.undersquare.widgets.TextWidget;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.pointRectangleCollision;
 
-public class ButtonWidget extends TextWidget implements ProcessingClass {
+public class ButtonWidget extends TextWidget{
 	
 	public ButtonState buttonState = ButtonState.IDLE;
 	public Runnable onClick;

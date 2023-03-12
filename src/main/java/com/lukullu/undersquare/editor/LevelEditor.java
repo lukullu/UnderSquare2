@@ -3,12 +3,10 @@ package com.lukullu.undersquare.editor;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
-import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.LevelMap;
 import com.lukullu.undersquare.common.data.MapData;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
@@ -17,13 +15,9 @@ import com.lukullu.undersquare.widgets.button.LoadMapButton;
 import com.lukullu.undersquare.widgets.button.SaveMapButton;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.lang.model.util.ElementScanner14;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
@@ -269,8 +263,6 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		char selected = UnderSquare.getLevelEditor().curGrid.map.map[(int)pos.x][(int)pos.y];
 		tileSettings.widgets = new ArrayList<>();
-
-		int defaultValue = 0;
 
 		switch (selected){
 			case 'p':
@@ -530,6 +522,40 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						"ItemBox ... I",
 						DEFAULT_TEXT_SIZE,
 						itemBoxGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Actor ... A",
+						DEFAULT_TEXT_SIZE,
+						ACTOR_GRID_COLOR
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Sensor ... S",
+						DEFAULT_TEXT_SIZE,
+						SENSOR_GRID_COLOR
 				)
 		);
 

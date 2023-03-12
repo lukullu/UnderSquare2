@@ -1,6 +1,5 @@
 package com.lukullu.undersquare.widgets;
 
-import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Utils;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
-public class ScrollWidget extends Widget implements ProcessingClass {
+public class ScrollWidget extends Widget{
 
 	public static final int LINE_DISTANCE = 2;
 	public Widget LINE_PARTER = new Widget(new Vector2(dim.x/10f, 0),new Vector2(dim.x - dim.x/5,scaleToScreenY(2)),ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,UI_FOCUS_COLOR);

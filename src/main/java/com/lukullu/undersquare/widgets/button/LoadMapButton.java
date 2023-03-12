@@ -9,7 +9,6 @@ import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.Grid;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class LoadMapButton extends ButtonWidget {
