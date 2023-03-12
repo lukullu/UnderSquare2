@@ -644,6 +644,23 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								scaleToScreenY(24)
 						),
 						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Obstacle ... O",
+						DEFAULT_TEXT_SIZE,
+						OBSTACLE_GRID_COLOR
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
 						"Actor ... A",
 						DEFAULT_TEXT_SIZE,
 						ACTOR_GRID_COLOR

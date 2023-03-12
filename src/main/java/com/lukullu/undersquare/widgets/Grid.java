@@ -95,6 +95,9 @@ public class Grid implements ProcessingClass {
 					case 'i':
 						fill(itemBoxGridColor.getRGB());
 						break;
+					case 'o':
+						fill(OBSTACLE_GRID_COLOR.getRGB());
+						break;
 					case 'a':
 						fill(ACTOR_GRID_COLOR.getRGB());
 						break;

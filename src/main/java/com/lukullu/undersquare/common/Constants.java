@@ -67,12 +67,13 @@ public class Constants{
 	//colors
 	public static final Color wallGridColor = new Color(0xFAFAFA);
 	public static final Color emptyGridColor = new Color(0x1C1C1C).brighter().brighter();
-	public static final Color errorGridColor = Color.magenta;
+	public static final Color errorGridColor = Color.magenta.brighter();
 	public static final Color textColor = Color.black;
 	public static final Color playerGridColor = Color.red;
 	public static final Color enemyGridColor = Color.green.darker();
 	public static final Color spawnerGridColor = Color.yellow;
 	public static final Color itemBoxGridColor = Color.blue.darker();
+	public static final Color OBSTACLE_GRID_COLOR = Color.magenta.darker();
 	public static final Color ACTOR_GRID_COLOR = Color.yellow.brighter();
 	public static final Color SENSOR_GRID_COLOR = Color.yellow.darker();
 	public static final Color backgroundColor = Color.gray.darker().darker();

@@ -11,6 +11,8 @@ import com.lukullu.undersquare.game.entity.interactable.actor.Actor;
 import com.lukullu.undersquare.game.entity.interactable.actor.Door;
 import com.lukullu.undersquare.game.entity.interactable.sensor.Button;
 import com.lukullu.undersquare.game.entity.interactable.sensor.Sensor;
+import com.lukullu.undersquare.game.entity.obstacles.Obstacle;
+import com.lukullu.undersquare.game.entity.obstacles.OneWay;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.game.item.Item;
@@ -173,6 +175,21 @@ public class IO implements ProcessingClass {
                                         i
                                     )
                                 )[0]
+                            )
+                        );
+                    
+                    }
+
+                    if(map[j][i] == 'o')
+                    {
+
+                        UnderSquare.getGameHandler().entities.add(
+                            new OneWay(
+                                new Vector2(
+                                    i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
+                                    j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
+                                ),
+                                0
                             )
                         );
                     
