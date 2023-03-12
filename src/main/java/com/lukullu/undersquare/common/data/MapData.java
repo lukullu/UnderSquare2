@@ -150,6 +150,27 @@ public class MapData {
         return sensorSettings.get(pos)[setting];
     }
 
+    // ---------------------------------------- Obstacle
+
+    public HashMap<Vector2,int[]> obstacleSettings = new HashMap<Vector2,int[]>();
+
+    public static int obstacleSettingsAmount = 1;
+    // [0] ... id
+
+    public void setObstacleSetting(Vector2 pos, int value, int setting)
+    {
+        int[] settings = obstacleSettings.get(pos);
+
+        settings[setting] = value;
+
+        obstacleSettings.put(pos, settings);
+    }
+
+    public int getObstacleSetting(Vector2 pos, int setting)
+    {
+        return obstacleSettings.get(pos)[setting];
+    }
+
     // ---------------------------------------- GAME
 
     public int[] gameSettings = new int[1];

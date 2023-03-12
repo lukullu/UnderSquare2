@@ -44,6 +44,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public int curItemIndex = 0;
 	public int curEnemyIndex = 0;
 	public int curIDIndex = 0;
+	public int curObstacleDirIndex = 0;
 
 	public MapData curMapData = new MapData();
 
@@ -296,11 +297,11 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 				if(curMapData.itemSettings.containsKey(pos))
 					curItemIndex = curMapData.getItemSetting(pos, 0);
-					else
-					{
-						curMapData.itemSettings.put(pos, new int[MapData.itemSettingsAmount]);
-						curMapData.setItemSetting(pos, curItemIndex, 0);
-					}
+				else
+				{
+					curMapData.itemSettings.put(pos, new int[MapData.itemSettingsAmount]);
+					curMapData.setItemSetting(pos, curItemIndex, 0);
+				}
 
 				//if(KeyHandler.shift) defaultValue = curItemIndex;
 				//if(!curMapData.itemSettings.containsKey(pos)) curMapData.setItemSetting(pos, curItemIndex, 0);
@@ -369,7 +370,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 			case 'a':
 
 				if(curMapData.actorSettings.containsKey(pos))
+				{
+					curMapData.setActorSetting(pos, curIDIndex, 0);
 					curIDIndex = curMapData.getActorSetting(pos, 0);
+				}
 				else
 				{
 					curMapData.actorSettings.put(pos, new int[MapData.actorSettingsAmount]);
@@ -403,7 +407,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 			case 's':
 
 				if(curMapData.sensorSettings.containsKey(pos))
+				{
 					curMapData.setSensorSetting(pos, curIDIndex, 0);
+					curIDIndex = curMapData.getSensorSetting(pos, 0);
+				}
 				else
 				{
 					curMapData.sensorSettings.put(pos,new int[MapData.sensorSettingsAmount]);
@@ -429,6 +436,43 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								DEFAULT_TEXT_SIZE,
 								CENTER,
 								() -> {sensorCycle(pos);}
+						)
+				);
+
+				break;
+
+			case 'o':
+
+				if(curMapData.obstacleSettings.containsKey(pos))
+				{
+					curMapData.setObstacleSetting(pos, curObstacleDirIndex, 0);
+					curObstacleDirIndex = curMapData.getObstacleSetting(pos, 0);
+				}
+				else
+				{
+					curMapData.obstacleSettings.put(pos,new int[MapData.sensorSettingsAmount]);
+					curMapData.setObstacleSetting(pos, curObstacleDirIndex, 0);
+				}
+
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Obstacle Settings:",
+								DEFAULT_TEXT_SIZE, CORNER
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Facing: " + Constants.DIRECTIONS[curObstacleDirIndex],
+								DEFAULT_TEXT_SIZE,
+								CENTER,
+								() -> {obstacleCycle(pos);}
 						)
 				);
 
@@ -514,7 +558,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		}
 
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
-			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curIDIndex+"");}
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText("Channel: "+curIDIndex);}
 
 	}
 
@@ -533,7 +577,24 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		}
 
 		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
-			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText(curIDIndex+"");}
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText("Channel: "+curIDIndex);}
+
+	}
+
+	public void obstacleCycle(Vector2 pos){
+		curObstacleDirIndex++;
+		curObstacleDirIndex %= 4;
+
+		if(curMapData.obstacleSettings.containsKey(pos))
+			curMapData.setObstacleSetting(pos, curObstacleDirIndex, 0);
+		else
+		{
+			curMapData.obstacleSettings.put(pos,new int[MapData.sensorSettingsAmount]);
+			curMapData.setObstacleSetting(pos, curObstacleDirIndex, 0);
+		}
+
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.setText("Facing: " + Constants.DIRECTIONS[curObstacleDirIndex]);}
 
 	}
 

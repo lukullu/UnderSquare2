@@ -152,6 +152,14 @@ public class Constants{
 				Color.gray
 			};
 
+	public static final String[] DIRECTIONS = 
+			{
+				"Left",
+				"Right",
+				"Up",
+				"Down"
+			};
+
 	//prj
 	
 	//Pellets

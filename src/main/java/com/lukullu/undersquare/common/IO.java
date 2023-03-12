@@ -189,7 +189,12 @@ public class IO implements ProcessingClass {
                                     i * mapGridSize + mapGridSize/2 - itemBoxDimensions/2, 
                                     j * mapGridSize + mapGridSize/2 - itemBoxDimensions/2
                                 ),
-                                0
+                                levelMap.settings.obstacleSettings.get(
+                                    new Vector2(
+                                        j, 
+                                        i
+                                    )
+                                )[0]
                             )
                         );
                     

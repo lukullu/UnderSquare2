@@ -9,6 +9,7 @@ import com.lukullu.undersquare.common.msc.Geometry;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.effect.Effect;
+import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.ItemBox;
 
@@ -112,7 +113,7 @@ public class Persuer extends Enemy{
         if(UnderSquare.state instanceof GameHandler)
             for(Entity entity : UnderSquare.getGameHandler().entities)
             {
-                if(!(entity instanceof Enemy) && !(entity instanceof Projectile) && !(entity instanceof ItemBox) && !(entity instanceof Effect))
+                if(entity instanceof Player)
                 {
                     if(Geometry.getDistanceSquared(entity, this) < smallestDistance) possibleTargets.add(entity);
                 }

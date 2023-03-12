@@ -3,9 +3,11 @@ package com.lukullu.undersquare.game.entity.obstacles;
 import com.lukullu.undersquare.common.collision.Collision;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
+import com.lukullu.undersquare.game.entity.player.Player;
 
 public class OneWay extends Obstacle{
 
+    private static final int PLAYER_PUSH_FORCE = 300000;
     private static final int PUSH_FORCE = 100000;
 
     private int direction = 0;
@@ -21,19 +23,40 @@ public class OneWay extends Obstacle{
 		
         for (Entity entity : entityColliders)
         {
-            switch(direction){
-                case 0:
-                    entity.force.x -= PUSH_FORCE;
-                    break;
-                case 1:
-                    entity.force.x += PUSH_FORCE;
-                    break;
-                case 2:
-                    entity.force.y -= PUSH_FORCE;
-                    break;
-                case 3:
-                    entity.force.y += PUSH_FORCE;
-                    break;
+
+            if(!(entity instanceof Player))
+            {
+                switch(direction){
+                    case 0:
+                        entity.force.x -= PUSH_FORCE;
+                        break;
+                    case 1:
+                        entity.force.x += PUSH_FORCE;
+                        break;
+                    case 2:
+                        entity.force.y -= PUSH_FORCE;
+                        break;
+                    case 3:
+                        entity.force.y += PUSH_FORCE;
+                        break;
+                }
+            }
+            else
+            {
+                switch(direction){
+                    case 0:
+                        entity.force.x -= PLAYER_PUSH_FORCE;
+                        break;
+                    case 1:
+                        entity.force.x += PLAYER_PUSH_FORCE;
+                        break;
+                    case 2:
+                        entity.force.y -= PLAYER_PUSH_FORCE;
+                        break;
+                    case 3:
+                        entity.force.y += PLAYER_PUSH_FORCE;
+                        break;
+                }
             }
         }
 
