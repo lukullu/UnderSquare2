@@ -7,6 +7,7 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Persuer;
 import com.lukullu.undersquare.game.entity.enemy.Spawner;
+import com.lukullu.undersquare.game.entity.enemy.Turret;
 import com.lukullu.undersquare.game.entity.interactable.actor.Actor;
 import com.lukullu.undersquare.game.entity.interactable.actor.Door;
 import com.lukullu.undersquare.game.entity.interactable.sensor.Button;
@@ -221,6 +222,9 @@ public class IO implements ProcessingClass {
                 break;
             case 2:
                 UnderSquare.getGameHandler().entities.add(new Persuer(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2)));
+                break;
+            case 3:
+                UnderSquare.getGameHandler().entities.add(new Turret(new Vector2(i * mapGridSize  + mapGridSize/2 - enemyDimensions/2, j * mapGridSize  + mapGridSize/2 - enemyDimensions/2)));
                 break;
 
         }

@@ -81,6 +81,39 @@ public class Collision implements ProcessingClass {
 		return accumulator;
 		
 	}
+
+	public static boolean rayCastSuccess(Vector2 pos, Vector2 dim, Vector2 dir){
+		float len = (float) sqrt(pow(dir.x,2)+pow(dir.y,2));
+		
+		dir = unitVector2(dir);
+		Vector2 accumulator = new Vector2(0,0);
+		
+		boolean[][] collisionData; if (UnderSquare.getGameHandler() != null) { collisionData = UnderSquare.getGameHandler().levelMap.collisionData; } else return false;
+
+		while(sqrt(pow(accumulator.x,2) + pow(accumulator.y,2)) < len){
+			
+			float tempX = dir.x;
+			float tempY = dir.y;
+			
+			Vector2[] coords = getGridPositions(new Vector2(pos.x + accumulator.x + tempX, pos.y + accumulator.y + tempY),dim);
+			
+			if(collisionData[(int)coords[0].y][(int)coords[0].x]){ return false;}
+			if(collisionData[(int)coords[1].y][(int)coords[1].x]){ return false;}
+			if(collisionData[(int)coords[2].y][(int)coords[2].x]){ return false;}
+			if(collisionData[(int)coords[3].y][(int)coords[3].x]){ return false;}
+			
+			
+			accumulator.x += tempX;
+			accumulator.y += tempY;
+			
+			if(sqrt(pow(accumulator.x,2)+pow(accumulator.y,2)) > len){ return true; }
+			
+			
+		}
+		
+		return true;
+		
+	}
 	
 	public static Direction[] calcCollisionAxis(Vector2 pos, Vector2 dim){
 		

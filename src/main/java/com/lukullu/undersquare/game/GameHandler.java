@@ -35,6 +35,8 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public ArrayList<Entity> paintLayer2 = new ArrayList<>();
 	public ArrayList<Entity> paintLayer3 = new ArrayList<>();
 
+	public Player player;
+
 	public GameHandler(LevelMap _levelMap)
 	{
 		levelMap = _levelMap; 
@@ -48,9 +50,19 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		cam = new Camera(new Vector2(scaleToScreenX((int)cameraPosition.x),scaleToScreenY((int)cameraPosition.y)),new Vector2(scaleToScreenX((int)cameraDimensions.x),scaleToScreenY((int)cameraDimensions.y)));
 		mapGeometry = IO.createMapElements(levelMap.map,IO.convertMapDataToCollisionData(levelMap.map), levelMap);
 
+		player = findPlayer();
+
 	}
 	
-	
+	public Player findPlayer()
+	{
+		for(Entity entity : entities)
+		{
+			if(entity instanceof Player){ return (Player)entity; }
+		}
+
+		return null;
+	}
 	
 	public void update() {
 		

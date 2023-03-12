@@ -122,7 +122,8 @@ public class Constants{
 			{
 					"Bouncer",
 					"Spawner",
-					"Persuer"
+					"Persuer",
+					"Turret"
 			};
 
 	public static final String[] itemTypeNames =
